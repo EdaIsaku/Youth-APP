@@ -1,6 +1,10 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "allowJs": true,
+    "checkJs": true
+    // "rootDir": "./src",
+    // "outDir": "./dist"
+    // "noImplicitAny": true // or "strict": true
   }
 }
