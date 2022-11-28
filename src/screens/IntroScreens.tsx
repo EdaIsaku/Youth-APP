@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { useDispatch } from "react-redux";
-import { setShowRealApp } from "../../redux/features/settingsSlice";
 
 import { SLIDES } from "../constants/slides";
+import { useAtom } from "jotai";
+import { showRealAppAtom } from "../store";
 
 type Slide = {
   key: number;
@@ -25,13 +25,12 @@ const _renderItem = ({ item }) => {
 };
 
 export const IntroScreens = () => {
-  const dispatch = useDispatch();
-
+  const [showRealApp, setShowRealApp] = useAtom(showRealAppAtom);
   return (
     <AppIntroSlider
       renderItem={_renderItem}
       data={SLIDES}
-      onDone={() => dispatch(setShowRealApp(true))}
+      onDone={() => setShowRealApp(true)}
     />
   );
 };

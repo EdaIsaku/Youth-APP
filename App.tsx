@@ -1,11 +1,15 @@
 import { RootTab } from "./src/navigation/RootTab";
-import { store } from "./redux/store";
-import { Provider } from "react-redux";
+import { Provider } from "jotai";
+import { Suspense } from "react";
+
+import { ActivityIndicator } from "react-native";
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <RootTab />
-    </Provider>
+    <Suspense fallback={<ActivityIndicator size={"large"} color="teal" />}>
+      <Provider>
+        <RootTab />
+      </Provider>
+    </Suspense>
   );
 }
