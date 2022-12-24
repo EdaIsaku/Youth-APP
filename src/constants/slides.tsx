@@ -1,32 +1,31 @@
 type Slide = {
   key: number;
+  appName?: string;
   title: string;
-  text: string;
-  image: string;
-  backgroundColor: string;
+  text?: string;
+  image: any;
+  // backgroundColor?: string;
 };
 
 const SLIDES: Slide[] = [
   {
     key: 1,
-    title: "Youth-APP",
-    text: "Description.\nSay something cool",
-    image: require("../../assets/1.jpg"),
-    backgroundColor: "#59b2ab",
+    appName: "Youth",
+    title: "Welcome!",
+    text: "Youth-APP is designed to fulfill every need in your next important event.",
+    image: require("../../assets/images/1.jpg"),
   },
   {
     key: 2,
-    title: "Title 2",
-    text: "Other cool stuff",
-    image: require("../../assets/2.jpg"),
-    backgroundColor: "#febe29",
+    title: "Explore top events & get notified about them.",
+    text: "You will get access to the popular events & regular update by notifications.",
+    image: require("../../assets/images/2.jpg"),
   },
   {
     key: 3,
-    title: "Rocket guy",
-    text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
-    image: require("../../assets/3.jpg"),
-    backgroundColor: "#22bcb5",
+    title: "Pay and go!",
+    text: "Register with your phone number to be able to fill it with points and buy while enjoying the show!",
+    image: require("../../assets/images/pay.jpg"),
   },
 ];
 

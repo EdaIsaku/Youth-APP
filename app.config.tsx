@@ -1,1 +1,1 @@
-import { ExpoConfig } from "expo/config";
+// import { ExpoConfig } from "expo/config";

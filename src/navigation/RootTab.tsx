@@ -1,11 +1,12 @@
+import React from "react";
 import { RootStack } from "./RootStack";
 import { IntroScreens } from "../screens";
 
-import { useAtom } from "jotai";
 import { showRealAppAtom } from "../store";
+import { useAtom } from "jotai";
 
 export const RootTab = () => {
   const [showRealApp] = useAtom(showRealAppAtom);
 
-  return <>{!showRealApp ? <IntroScreens /> : <RootStack />}</>;
+  return <>{showRealApp ? <IntroScreens /> : <RootStack />}</>;
 };
