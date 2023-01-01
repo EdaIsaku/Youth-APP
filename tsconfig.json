@@ -11,5 +11,8 @@
     "skipLibCheck": true,
     "moduleResolution": "Node"
   },
+  "exclude": [
+    "/node_modules"
+  ],
   "extends": "expo/tsconfig.base"
 }

@@ -1,6 +1,13 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 
-export const Home = () => {
-  return <Text>Home</Text>;
+export const Home = ({ navigation }) => {
+  return (
+    <View>
+      <Text>Home</Text>
+      <TouchableOpacity>
+        <Text>Go to User</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };

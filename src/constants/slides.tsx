@@ -1,10 +1,12 @@
+import { PhoneNumber } from "../components/PhoneNumber";
+
 type Slide = {
   key: number;
   appName?: string;
   title: string;
   text?: string;
-  image: any;
-  // backgroundColor?: string;
+  image?: any;
+  component?: any;
 };
 
 const SLIDES: Slide[] = [
@@ -17,7 +19,7 @@ const SLIDES: Slide[] = [
   },
   {
     key: 2,
-    title: "Explore top events & get notified about them.",
+    title: "Explore & get notifications.",
     text: "You will get access to the popular events & regular update by notifications.",
     image: require("../../assets/images/2.jpg"),
   },
@@ -26,6 +28,11 @@ const SLIDES: Slide[] = [
     title: "Pay and go!",
     text: "Register with your phone number to be able to fill it with points and buy while enjoying the show!",
     image: require("../../assets/images/pay.jpg"),
+  },
+  {
+    key: 4,
+    title: "Enter your number and start YOUTH journey!",
+    component: <PhoneNumber />,
   },
 ];
 

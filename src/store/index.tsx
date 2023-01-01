@@ -3,4 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const storage = createJSONStorage(() => AsyncStorage);
 
-export const showRealAppAtom = atomWithStorage("showRealApp", false, storage);
+const showRealAppAtom = atomWithStorage("showRealApp", false, storage);
+const showModalAtom = atomWithStorage("showModalApp", false, storage);
+
+export { showRealAppAtom, showModalAtom };
