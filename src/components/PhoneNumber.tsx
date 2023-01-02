@@ -14,7 +14,7 @@ import { SIZES } from "../../theme/theme";
 
 export const PhoneNumber = () => {
   const [value, setValue] = useState("");
-  const [isFocused, setIsFocused] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
   const [countryCode, setCountryCode] = useState("");
   const [valid, setValid] = useState(false);
   const phoneInput = useRef<PhoneInput>(null);

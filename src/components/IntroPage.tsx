@@ -33,8 +33,8 @@ export const IntroPage = ({ item }: { item: Item }) => {
             style={{
               justifyContent: "center",
               width: "100%",
-              height: "80%",
-              backgroundColor: COLORS.lightGrey,
+              height: "100%",
+              backgroundColor: COLORS.white,
             }}
           >
             {component}

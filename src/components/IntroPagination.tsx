@@ -5,13 +5,12 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useEffect } from "react";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
-  withSpring,
 } from "react-native-reanimated";
 import { SLIDES } from "../constants";
 import { COLORS, FONTS } from "../../theme/theme";
@@ -25,23 +24,42 @@ export const IntroPagination = ({
   activeIndex: number;
   slider: any;
 }) => {
-  let buttonText = activeIndex === 1 ? "Allow Notification" : "";
-  // const offset = useSharedValue(1);
+  const buttonText = activeIndex === 1 ? "Allow Notification" : "";
 
-  // const animatedStyles = useAnimatedStyle(() => {
-  //   return {
-  //     transform: [
-  //       {
-  //         translateX: offset.value,
-  //       },
-  //     ],
-  //   };
-  // });
+  const animatedWidth = useSharedValue(12);
+  const animatedColor = useSharedValue(COLORS.lightGrey);
+  const animatedText = useSharedValue("");
+
+  const config = {
+    duration: 500,
+    easing: Easing.ease,
+  };
+
+  useEffect(() => {
+    animateDot();
+    activeIndex === 1
+      ? (animatedText.value = withTiming("Allow Notifications"))
+      : "";
+  }, []);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      width: animatedWidth.value,
+      backgroundColor: animatedColor.value,
+    };
+  });
+  const animateDot = () => {
+    animatedWidth.value = withTiming(45, config);
+    animatedColor.value = withTiming(COLORS.secondary, config);
+  };
 
   const handleSkip = () => {
+    animateDot();
     slider.current.goToSlide(activeIndex + 1);
   };
+
   const handleNextPress = () => {
+    animateDot();
     slider.current.goToSlide(activeIndex + 1);
   };
 
@@ -53,9 +71,21 @@ export const IntroPagination = ({
             SLIDES.map((_, i) => (
               <Animated.View key={i}>
                 <TouchableOpacity
-                  style={[styles.dot, i === activeIndex && styles.activeDot]}
+                  style={[
+                    styles.dot,
+                    animatedStyles,
+                    i === activeIndex
+                      ? {
+                          width: animatedWidth.value,
+                          backgroundColor: animatedColor.value,
+                        }
+                      : {
+                          width: 12,
+                          backgroundColor: COLORS.lightGrey,
+                        },
+                  ]}
                   onPress={() => {
-                    // offset.value = withSpring(Math.random() * 255);
+                    animateDot();
                     slider?.current.goToSlide(i, true);
                   }}
                 />
@@ -84,32 +114,28 @@ export const IntroPagination = ({
 const styles = StyleSheet.create({
   paginationContainer: {
     position: "absolute",
+    // backgroundColor: "red",
     bottom: 16,
     left: 16,
     right: 16,
   },
   paginationDots: {
+    bottom: 120,
+    left: 16,
+    right: 16,
+    // backgroundColor: "orange",
+    position: "absolute",
     height: 16,
-    margin: 16,
+    // margin: 16,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    // marginBottom: 120,
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-
-    // width: 15,
-    // height: 15,
-    // transform: [{ rotate: "45deg" }],
-    marginBottom: 80,
+    height: 12,
+    borderRadius: 6,
     marginHorizontal: SIZES.margin / 4,
-    backgroundColor: COLORS.lightGrey,
-  },
-  activeDot: {
-    backgroundColor: COLORS.secondary,
-    width: 30,
   },
   buttonContainer: {
     flexDirection: "row",
