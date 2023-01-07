@@ -13,33 +13,26 @@ import { SLIDES } from "../constants";
 type Item = typeof SLIDES[0];
 
 export const IntroPage = ({ item }: { item: Item }) => {
-  const { appName, image, title, text, component } = item;
+  const { appName, image, title, text, component, code } = item;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.slide}>
-        <Text style={styles.appName}>{appName}</Text>
-        {image ? (
+        {image && (
           <>
+            <Text style={styles.appName}>{appName}</Text>
+
             <View style={styles.imageContainer}>
               <Image style={styles.image} source={image} />
             </View>
-
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.paragraph}>{text}</Text>
           </>
-        ) : (
-          <View
-            style={{
-              justifyContent: "center",
-              width: "100%",
-              height: "100%",
-              backgroundColor: COLORS.white,
-            }}
-          >
-            {component}
-          </View>
         )}
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.paragraph}>{text}</Text>
+        <View style={styles.componentContainer}>{component}</View>
+        <View>
+          <Text>{code}</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -48,6 +41,12 @@ export const IntroPage = ({ item }: { item: Item }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  componentContainer: {
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: COLORS.white,
   },
   slide: {
     flex: 1,
@@ -79,6 +78,7 @@ const styles = StyleSheet.create({
     color: COLORS.grey,
     fontSize: SIZES.body2,
     fontFamily: "Lato-Regular",
+    textAlign: "center",
     paddingHorizontal: SIZES.padding * 3,
     paddingVertical: SIZES.padding,
   },

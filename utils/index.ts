@@ -1,0 +1,1 @@
+export { requestNotificationsPermissions } from "./notifications";

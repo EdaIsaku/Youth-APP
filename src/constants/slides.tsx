@@ -1,38 +1,48 @@
+import { VerifyNumber } from "../components/VerifyNumber";
 import { PhoneNumber } from "../components/PhoneNumber";
+import { IMAGES } from "./images";
 
 type Slide = {
   key: number;
   appName?: string;
-  title: string;
+  title?: string;
   text?: string;
   image?: any;
   component?: any;
+  code?: any;
 };
 
 const SLIDES: Slide[] = [
   {
     key: 1,
     appName: "Youth",
-    title: "Welcome!",
+    title: "Welcome !",
     text: "Youth-APP is designed to fulfill every need in your next important event.",
-    image: require("../../assets/images/1.jpg"),
+    image: IMAGES.intro_1,
   },
   {
     key: 2,
     title: "Explore & get notifications.",
     text: "You will get access to the popular events & regular update by notifications.",
-    image: require("../../assets/images/2.jpg"),
+    image: IMAGES.intro_2,
   },
   {
     key: 3,
     title: "Pay and go!",
     text: "Register with your phone number to be able to fill it with points and buy while enjoying the show!",
-    image: require("../../assets/images/pay.jpg"),
+    image: IMAGES.intro_3,
   },
   {
     key: 4,
-    title: "Enter your number and start YOUTH journey!",
+    title: "Enter phone number",
+    text: "You will receive a code via SMS on this mobile number",
     component: <PhoneNumber />,
+  },
+  {
+    key: 5,
+    title: "Verification",
+    text: "Please enter the 4-digit code sent to your number.",
+    component: <VerifyNumber />,
   },
 ];
 

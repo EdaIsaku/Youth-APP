@@ -14,10 +14,15 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@react-navigation/stack": "^6.3.5",
+    "dotenv": "^16.0.3",
     "expo": "^47.0.0",
     "expo-font": "~11.0.1",
     "expo-haptics": "~12.0.1",
+    "expo-linear-gradient": "^12.0.1",
+    "expo-location": "^15.0.1",
+    "expo-notifications": "^0.17.0",
     "expo-status-bar": "~1.4.2",
+    "express": "^4.18.2",
     "jotai": "^1.10.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -25,11 +30,14 @@
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-reanimated": "^2.13.0",
-    "react-native-swipe-gestures": "^1.0.5",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "ts-node": "^10.9.1",
+    "twilio": "^3.84.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.18",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "typescript": "^4.6.3"

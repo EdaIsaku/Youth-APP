@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2016",
+    "noEmit": false,
     "jsx": "preserve",
     "module": "commonjs",
     "rootDir": ".",
@@ -11,8 +12,6 @@
     "skipLibCheck": true,
     "moduleResolution": "Node"
   },
-  "exclude": [
-    "/node_modules"
-  ],
+  "exclude": ["/node_modules", "./dist"],
   "extends": "expo/tsconfig.base"
 }
