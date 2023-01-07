@@ -4,18 +4,17 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import React, { useEffect } from "react";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-} from "react-native-reanimated";
+import * as Notifications from "expo-notifications";
+import * as Location from "expo-location";
 import { SLIDES } from "../constants";
 import { COLORS, FONTS } from "../../theme/theme";
 import { CustomIntroButton } from "./CustomIntroButton";
-import { SIZES } from "../../dist/theme/theme";
+import { SIZES } from "../../theme/theme";
+import { useAtom } from "jotai";
+import { allowNotificationAtom, allowLocationAtom } from "../store";
 
 export const IntroPagination = ({
   activeIndex,
@@ -24,43 +23,66 @@ export const IntroPagination = ({
   activeIndex: number;
   slider: any;
 }) => {
-  const buttonText = activeIndex === 1 ? "Allow Notification" : "";
+  let buttonText = "";
+  const [allowNotifcation, setAllowNotification] = useAtom(
+    allowNotificationAtom
+  );
+  const [allowLocation, setAllowLocation] = useAtom(allowLocationAtom);
 
-  const animatedWidth = useSharedValue(12);
-  const animatedColor = useSharedValue(COLORS.lightGrey);
-  const animatedText = useSharedValue("");
+  switch (activeIndex) {
+    case 1:
+      buttonText = "Allow Notification";
+      break;
+    case 2:
+      buttonText = "Allow Location";
+      break;
+    default:
+      buttonText = "";
+  }
 
-  const config = {
-    duration: 500,
-    easing: Easing.ease,
+  const handleNotificationPermission = async () => {
+    const settings = await Notifications.getPermissionsAsync();
+    if (settings.granted) {
+      console.log("notification permision set");
+      setAllowNotification(true);
+    } else {
+      setAllowNotification(false);
+    }
   };
 
-  useEffect(() => {
-    animateDot();
-    activeIndex === 1
-      ? (animatedText.value = withTiming("Allow Notifications"))
-      : "";
-  }, []);
-
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      width: animatedWidth.value,
-      backgroundColor: animatedColor.value,
-    };
-  });
-  const animateDot = () => {
-    animatedWidth.value = withTiming(45, config);
-    animatedColor.value = withTiming(COLORS.secondary, config);
+  const handelLocationPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status == "granted") {
+      console.log("location permision set");
+      setAllowLocation(true);
+    } else {
+      setAllowLocation(false);
+    }
   };
+
+  // useEffect(() => {
+  //   handleNotificationPermission();
+  //   handelLocationPermission();
+  // }, [allowNotifcation, allowLocation, activeIndex]);
 
   const handleSkip = () => {
-    animateDot();
     slider.current.goToSlide(activeIndex + 1);
   };
-
-  const handleNextPress = () => {
-    animateDot();
+  const goToNextSlide = () => {
     slider.current.goToSlide(activeIndex + 1);
+  };
+  const handleNextPress = () => {
+    switch (activeIndex) {
+      case 0:
+        goToNextSlide();
+        break;
+      case 1:
+        allowNotifcation ? goToNextSlide() : Linking.openSettings();
+        break;
+      case 2:
+        allowLocation ? goToNextSlide() : handelLocationPermission();
+        break;
+    }
   };
 
   return (
@@ -69,27 +91,16 @@ export const IntroPagination = ({
         <View style={styles.paginationDots}>
           {SLIDES.length > 1 &&
             SLIDES.map((_, i) => (
-              <Animated.View key={i}>
-                <TouchableOpacity
-                  style={[
-                    styles.dot,
-                    animatedStyles,
-                    i === activeIndex
-                      ? {
-                          width: animatedWidth.value,
-                          backgroundColor: animatedColor.value,
-                        }
-                      : {
-                          width: 12,
-                          backgroundColor: COLORS.lightGrey,
-                        },
-                  ]}
-                  onPress={() => {
-                    animateDot();
-                    slider?.current.goToSlide(i, true);
-                  }}
-                />
-              </Animated.View>
+              <TouchableOpacity
+                key={i}
+                onPress={() => {
+                  slider?.current.goToSlide(i, true);
+                }}
+                style={[
+                  styles.dot,
+                  i === activeIndex ? styles.activeDot : styles.inactiveDot,
+                ]}
+              ></TouchableOpacity>
             ))}
         </View>
 
@@ -101,10 +112,12 @@ export const IntroPagination = ({
           ) : (
             <View></View>
           )}
-          <CustomIntroButton
-            handleNextPress={handleNextPress}
-            buttonText={buttonText}
-          />
+          {activeIndex !== 3 && activeIndex !== 4 && (
+            <CustomIntroButton
+              handleNextPress={handleNextPress}
+              buttonText={buttonText}
+            />
+          )}
         </View>
       </SafeAreaView>
     </View>
@@ -114,38 +127,42 @@ export const IntroPagination = ({
 const styles = StyleSheet.create({
   paginationContainer: {
     position: "absolute",
-    // backgroundColor: "red",
-    bottom: 16,
-    left: 16,
-    right: 16,
+    bottom: SIZES.md,
+    left: SIZES.md,
+    right: SIZES.md,
   },
   paginationDots: {
-    bottom: 120,
-    left: 16,
-    right: 16,
-    // backgroundColor: "orange",
+    bottom: 130,
+    left: SIZES.md,
+    right: SIZES.md,
     position: "absolute",
-    height: 16,
-    // margin: 16,
+    height: SIZES.md,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // marginBottom: 120,
   },
   dot: {
-    height: 12,
-    borderRadius: 6,
-    marginHorizontal: SIZES.margin / 4,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: SIZES.margin / 2,
+  },
+  activeDot: {
+    width: 45,
+    backgroundColor: COLORS.secondary,
+  },
+  inactiveDot: {
+    width: 10,
+    backgroundColor: COLORS.lightGrey,
   },
   buttonContainer: {
     flexDirection: "row",
     marginHorizontal: SIZES.margin,
-    marginBottom: 30,
+    marginBottom: SIZES.margin * 4,
     justifyContent: "space-between",
     alignItems: "center",
   },
   skip: {
-    padding: 10,
+    padding: SIZES.padding,
   },
   skipText: {
     color: COLORS.primary,

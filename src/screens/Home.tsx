@@ -1,11 +1,19 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 
-export const Home = ({ navigation }) => {
+interface Navigation {
+  navigate(destination: string): void;
+}
+
+export const Home = ({ navigation }: { navigation: Navigation }) => {
   return (
     <View>
       <Text>Home</Text>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Ticket");
+        }}
+      >
         <Text>Go to User</Text>
       </TouchableOpacity>
     </View>
