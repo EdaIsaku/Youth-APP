@@ -52,18 +52,16 @@ export const IntroPagination = ({
 
   const handelLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status == "granted") {
-      console.log("location permision set");
+    if (status === "granted") {
       setAllowLocation(true);
     } else {
       setAllowLocation(false);
     }
   };
 
-  // useEffect(() => {
-  //   handleNotificationPermission();
-  //   handelLocationPermission();
-  // }, [allowNotifcation, allowLocation, activeIndex]);
+  useEffect(() => {
+    console.log(allowLocation, allowNotifcation);
+  }, []);
 
   const handleSkip = () => {
     slider.current.goToSlide(activeIndex + 1);

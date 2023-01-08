@@ -11,9 +11,9 @@ export const VerifyNumber = () => {
   return (
     <View style={styles.container}>
       <View style={styles.digitContainer}>
-        {digitArray.map(() => {
+        {digitArray.map((_, idx) => {
           return (
-            <TouchableOpacity style={styles.boxContainer}>
+            <TouchableOpacity style={styles.boxContainer} key={idx}>
               <TextInput style={styles.digitInput}>1</TextInput>
             </TouchableOpacity>
           );
