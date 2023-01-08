@@ -1,5 +1,6 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { COLORS } from "../../theme/theme";
 
 interface Navigation {
   navigate(destination: string): void;
@@ -7,7 +8,7 @@ interface Navigation {
 
 export const Home = ({ navigation }: { navigation: Navigation }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Home</Text>
       <TouchableOpacity
         onPress={() => {
@@ -19,3 +20,10 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.grey,
+  },
+});

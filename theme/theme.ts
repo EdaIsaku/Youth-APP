@@ -29,6 +29,11 @@ export const SIZES = {
     width: "100%",
     height: "100%",
   },
+
+  phoneDimensions: {
+    width,
+    height,
+  },
 };
 
 export const COLORS = {
