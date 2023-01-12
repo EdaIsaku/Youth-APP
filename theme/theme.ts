@@ -38,13 +38,14 @@ export const SIZES = {
 
 export const COLORS = {
   primary: "#462964",
-  secondary: "#8957e5",
+  secondary: "#a044ff",
   // secondary: "#9C54D5",
   third: "#5EE2F0",
 
   //base
   white: "#fff",
   black: "#000",
+  transparentBlack: "rgba(0,0,0,0.5)",
   darkGrey: "#0e0e0e",
   grey: "#4d4d4d",
   lightGrey: "#ccc",

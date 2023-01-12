@@ -21,6 +21,7 @@ export const RootStack = () => {
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === "Home") {
@@ -42,11 +43,11 @@ export const RootStack = () => {
           tabBarStyle: {
             position: "absolute",
             left: SIZES.phoneDimensions.width / 10,
-            backgroundColor: COLORS.white,
+            backgroundColor: COLORS.black,
             marginBottom: SIZES.margin * 3,
             borderRadius: SIZES.border * 3,
             borderTopWidth: 1,
-            borderTopColor: "white",
+            borderTopColor: COLORS.black,
             height: 60,
             width: "80%",
             paddingBottom: SIZES.padding / 2,
