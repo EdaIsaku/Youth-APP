@@ -1,18 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, StyleSheet } from "react-native";
 import { Home, Search, Ticket, User } from "../screens";
 import { ICONS } from "../constants/icons";
-import { COLORS, SIZES } from "../../theme/theme";
+import { COLORS } from "../../theme/theme";
+import { STYLES } from "./RootTabStyles";
 
-// type RootStackParamList = {
-//   Home: undefined;
-//   Ticket: undefined;
-//   User: { userID: string };
-// };
-
-// const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 export const RootStack = () => {
@@ -40,29 +33,8 @@ export const RootStack = () => {
               />
             );
           },
-          tabBarStyle: {
-            position: "absolute",
-            left: SIZES.phoneDimensions.width / 10,
-            backgroundColor: COLORS.black,
-            marginBottom: SIZES.margin * 3,
-            borderRadius: SIZES.border * 3,
-            borderTopWidth: 1,
-            borderTopColor: COLORS.black,
-            height: 60,
-            width: "80%",
-            paddingBottom: SIZES.padding / 2,
-            shadowColor: COLORS.white,
-            shadowOffset: {
-              height: 0,
-              width: 0,
-            },
-            shadowOpacity: 0.8,
-            shadowRadius: 5,
-          },
-          tabBarLabelStyle: {
-            fontFamily: "Lato-Regular",
-            fontSize: SIZES.body4,
-          },
+          tabBarStyle: { ...STYLES.tabBarStyle },
+          tabBarLabelStyle: { ...STYLES.tabBarLabelStyle },
           tabBarActiveTintColor: COLORS.secondary,
           tabBarInactiveTintColor: COLORS.lightGrey,
         })}
@@ -81,7 +53,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     tintColor: COLORS.lightGrey,
-    // backgroundColor: "red",
   },
   focusedIcon: {
     tintColor: COLORS.secondary,
