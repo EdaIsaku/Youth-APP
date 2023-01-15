@@ -5,4 +5,6 @@ export const ICONS = {
   search: require("../../assets/icons/search_icon.png"),
   tickets: require("../../assets/icons/tickets_icon.png"),
   user: require("../../assets/icons/user_icon.png"),
+  heart: require("../../assets/icons/heart_icon.png"),
+  fullheart: require("../../assets/icons/full_heart_icon.png"),
 };

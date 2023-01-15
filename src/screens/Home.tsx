@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { COLORS, SIZES } from "../../theme/theme";
 import { IMAGES } from "../constants/images";
+import { PopularEvent } from "../components";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Navigation {
   navigate(destination: string): void;
@@ -17,69 +19,81 @@ interface Navigation {
 
 export const Home = ({ navigation }: { navigation: Navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>EVENTS</Text>
-      <View style={styles.searchMapContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.mapTitle}>Find through the map</Text>
-          <Text style={styles.mapSubtitle}>Tirana, Albania</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Image source={IMAGES.mini_map} style={styles.mapImage}></Image>
-        </View>
-      </View>
-      <Text style={styles.title}>FEATURED</Text>
-      <View style={styles.featuredContainer}>
-        <View style={styles.featuredImageContainer}>
-          <Image style={styles.featuredImage} source={IMAGES.mini_map}></Image>
-          <View style={styles.dateContainer}>
-            <Text style={styles.date}>31 Dec</Text>
+    <LinearGradient
+      // Background Linear Gradient
+      colors={[COLORS.darkGrey, COLORS.grey]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{
+        width: "100%",
+        height: "100%",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }}
+    >
+      <SafeAreaView style={styles.container}>
+        <View style={styles.upContainer}>
+          {/* <Text style={styles.title}>EVENTS</Text> */}
+          <View style={styles.searchMapContainer}>
+            <View style={styles.leftContainer}>
+              <Text style={styles.mapTitle}>Find through the map</Text>
+              <Text style={styles.mapSubtitle}>Tirana, Albania</Text>
+            </View>
+            <View style={styles.rightContainer}>
+              <Image source={IMAGES.mini_map} style={styles.mapImage}></Image>
+            </View>
           </View>
         </View>
-        <View style={styles.featuredInfo}>
-          <Text>Dua Lipa Concert</Text>
-          <Text>Skanderbag Square</Text>
+        <View style={styles.downContainer}>
+          {/* <Text style={[styles.title, { marginLeft: 20 }]}>POPULAR</Text> */}
+          <View style={styles.popularContainer}>
+            <ScrollView
+              horizontal={true}
+              contentContainerStyle={{
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+              showsHorizontalScrollIndicator={false}
+            >
+              <PopularEvent />
+              <PopularEvent />
+              <PopularEvent />
+              <PopularEvent />
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      <Text style={styles.title}>POOPULAR</Text>
-      <View style={styles.popularContainer}>
-        <ScrollView
-          bounces={true}
-          contentContainerStyle={{
-            backgroundColor: COLORS.black,
-          }}
-        >
-          <Text>Lorem Ipsum</Text>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
     alignItems: "center",
   },
+  upContainer: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flex: 0.2,
+    marginHorizontal: 10,
+  },
+  downContainer: {
+    justifyContent: "center",
+    alignItems: "flex-start",
+    flex: 0.6,
+    marginBottom: 80,
+  },
   searchMapContainer: {
-    flex: 0.1,
-    width: "90%",
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: COLORS.black,
     borderRadius: SIZES.border * 2,
   },
-  featuredContainer: {
-    flex: 0.25,
-    width: "90%",
-    borderRadius: SIZES.border * 2,
-    backgroundColor: COLORS.black,
-  },
   popularContainer: {
-    flex: 0.5,
-    width: "90%",
-    borderRadius: SIZES.border * 2,
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   leftContainer: {
     flex: 0.55,
@@ -93,28 +107,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  featuredImageContainer: {
-    borderTopLeftRadius: SIZES.border * 2,
-    borderTopRightRadius: SIZES.border * 2,
-    flex: 0.75,
-  },
-  featuredInfo: {
-    flex: 0.25,
-    backgroundColor: "red",
-    borderBottomLeftRadius: SIZES.border * 2,
-    borderBottomRightRadius: SIZES.border * 2,
-  },
-  dateContainer: {},
-  featuredImage: {
-    width: "100%",
-    height: "100%",
-    borderTopLeftRadius: SIZES.border * 2,
-    borderTopRightRadius: SIZES.border * 2,
-  },
-  date: {},
   title: {
     fontFamily: "Lato-Bold",
     fontSize: SIZES.h2,
+    paddingBottom: 10,
   },
   mapTitle: {
     paddingBottom: 5,

@@ -4,3 +4,4 @@ export { PhoneNumber } from "./PhoneNumber";
 export { VerifyNumber } from "./VerifyNumber";
 export { CustomButton } from "./CustomButton";
 export { PermissionDenied } from "./PermissionDenied";
+export { PopularEvent } from "./PopularEvent";
