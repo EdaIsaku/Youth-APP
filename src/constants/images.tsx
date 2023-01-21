@@ -4,4 +4,7 @@ export const IMAGES = {
   intro_3: require("../../assets/images/pay.jpg"),
   mini_map: require("../../assets/images/miniMap.jpg"),
   logo: require("../../assets/images/y_logo.jpg"),
+  event1: require("../../assets/images/event1.jpg"),
+  event2: require("../../assets/images/event2.jpeg"),
+  event3: require("../../assets/images/event3.webp"),
 };
