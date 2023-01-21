@@ -9,4 +9,5 @@ export const FONTS = {
   "Lato-Regular": require("../../assets/fonts/Lato-Regular.ttf"),
   "Lato-Thin": require("../../assets/fonts/Lato-Thin.ttf"),
   "Lato-ThinItalic": require("../../assets/fonts/Lato-ThinItalic.ttf"),
+  "Orbitron-Regular": require("../../assets/fonts/Orbitron-Regular.ttf"),
 };

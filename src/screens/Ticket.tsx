@@ -1,65 +1,16 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { EventTicket } from "../components";
 import { COLORS, SIZES } from "../../theme/theme";
 
 export const Ticket = () => {
-  const [isSelected, setIsSelected] = useState([true, false]);
-  const category = ["Bought", "History"];
-
-  const handleCategoryPress = (idx: number) => {
-    const newSelected = isSelected.map((_, id) => {
-      if (id === idx) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    setIsSelected(newSelected);
-  };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.categoryContainer}>
-        {category.map((el, idx) => {
-          return (
-            <TouchableOpacity
-              style={[
-                styles.categoryButton,
-                isSelected[idx] ? styles.activeCategoryButton : {},
-              ]}
-              key={idx}
-              onPress={() => handleCategoryPress(idx)}
-            >
-              <Text
-                style={[
-                  styles.category,
-                  isSelected[idx] ? styles.activeCategory : {},
-                ]}
-              >
-                {el}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>MyTicket</Text>
       </View>
       <View style={styles.ticketsContainer}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.contentContainerStyle}
-        >
-          <EventTicket />
-          <EventTicket />
-          <EventTicket />
-          <EventTicket />
-          <EventTicket />
-        </ScrollView>
+        <EventTicket name={"Eda"} lName={"Isaku"} ticketNumber={108223} />
       </View>
     </SafeAreaView>
   );
@@ -70,39 +21,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.black,
   },
-  categoryContainer: {
+  titleContainer: {
     flex: 0.1,
     width: "100%",
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
   ticketsContainer: {
-    flex: 0.9,
-    width: "100%",
-  },
-  contentContainerStyle: {
+    flex: 0.75,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
-  categoryButton: {
-    flexShrink: 0,
-    flexGrow: 1,
-    alignItems: "center",
-  },
-  activeCategoryButton: {
-    borderBottomColor: COLORS.secondary,
-    borderBottomWidth: 2,
-  },
-  category: {
+  title: {
     fontFamily: "Lato-Bold",
-    fontSize: SIZES.h2,
-    paddingBottom: SIZES.padding,
-  },
-  activeCategory: {
-    color: COLORS.secondary,
+    fontSize: SIZES.h1,
+    color: COLORS.white,
   },
 });
