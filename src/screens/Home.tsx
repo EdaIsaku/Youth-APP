@@ -2,14 +2,13 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
   StyleSheet,
   SafeAreaView,
   Image,
   ScrollView,
 } from "react-native";
 import { COLORS, SIZES } from "../../theme/theme";
-import { IMAGES } from "../constants/images";
+import { IMAGES, EVENTS } from "../constants";
 import { PopularEvent } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -21,9 +20,9 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
   return (
     <LinearGradient
       // Background Linear Gradient
-      colors={[COLORS.darkGrey, COLORS.grey]}
+      colors={[COLORS.grey, COLORS.grey]}
       start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+      end={{ x: 0.7, y: 1 }}
       style={{
         width: "100%",
         height: "100%",
@@ -33,7 +32,7 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.upContainer}>
-          {/* <Text style={styles.title}>EVENTS</Text> */}
+          <Text style={styles.title}>YOUTH</Text>
           <View style={styles.searchMapContainer}>
             <View style={styles.leftContainer}>
               <Text style={styles.mapTitle}>Find through the map</Text>
@@ -45,22 +44,24 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
           </View>
         </View>
         <View style={styles.downContainer}>
-          {/* <Text style={[styles.title, { marginLeft: 20 }]}>POPULAR</Text> */}
-          <View style={styles.popularContainer}>
-            <ScrollView
-              horizontal={true}
-              contentContainerStyle={{
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-              showsHorizontalScrollIndicator={false}
-            >
-              <PopularEvent />
-              <PopularEvent />
-              <PopularEvent />
-              <PopularEvent />
-            </ScrollView>
-          </View>
+          <Text style={styles.subtitle}>Explore al the events</Text>
+          <ScrollView
+            horizontal={true}
+            contentContainerStyle={styles.popularContainer}
+            showsHorizontalScrollIndicator={false}
+          >
+            {EVENTS.map((el, idx) => {
+              return (
+                <PopularEvent
+                  key={idx}
+                  eventName={el.eventName}
+                  place={el.place}
+                  time={el.time}
+                  image={el.image}
+                />
+              );
+            })}
+          </ScrollView>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -70,7 +71,7 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignItems: "center",
   },
   upContainer: {
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   downContainer: {
     justifyContent: "center",
     alignItems: "flex-start",
-    flex: 0.6,
+    flex: 0.7,
     marginBottom: 80,
   },
   searchMapContainer: {
@@ -90,10 +91,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.black,
     borderRadius: SIZES.border * 2,
+    shadowColor: COLORS.white,
+    shadowOffset: {
+      height: 0,
+      width: 0,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
   },
   popularContainer: {
-    // justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   leftContainer: {
     flex: 0.55,
@@ -108,9 +116,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    alignSelf: "center",
+    color: COLORS.white,
     fontFamily: "Lato-Bold",
-    fontSize: SIZES.h2,
-    paddingBottom: 10,
+    fontSize: SIZES.h1,
+    paddingBottom: 15,
   },
   mapTitle: {
     paddingBottom: 5,
@@ -127,5 +137,13 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.border,
     width: "85%",
     height: "85%",
+  },
+  subtitle: {
+    color: COLORS.white,
+    alignSelf: "center",
+    fontFamily: "Lato-Bold",
+    fontSize: SIZES.h2,
+    paddingTop: 30,
+    paddingBottom: 15,
   },
 });

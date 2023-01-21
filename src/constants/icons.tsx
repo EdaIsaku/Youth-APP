@@ -7,4 +7,6 @@ export const ICONS = {
   user: require("../../assets/icons/user_icon.png"),
   heart: require("../../assets/icons/heart_icon.png"),
   fullheart: require("../../assets/icons/full_heart_icon.png"),
+  location: require("../../assets/icons/location_icon.png"),
+  time: require("../../assets/icons/clock-icon.png"),
 };
