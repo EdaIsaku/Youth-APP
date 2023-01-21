@@ -9,4 +9,10 @@ export const ICONS = {
   fullheart: require("../../assets/icons/full_heart_icon.png"),
   location: require("../../assets/icons/location_icon.png"),
   time: require("../../assets/icons/clock-icon.png"),
+  edit: require("../../assets/icons/edit-image-icon.png"),
+  right: require("../../assets/icons/right.png"),
+  settings: require("../../assets/icons/settings_icon.png"),
+  information: require("../../assets/icons/information_icon.png"),
+  favourite: require("../../assets/icons/favourite_icon.png"),
+  logOut: require("../../assets/icons/exit_icon.png"),
 };
