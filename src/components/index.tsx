@@ -5,3 +5,4 @@ export { VerifyNumber } from "./VerifyNumber";
 export { CustomButton } from "./CustomButton";
 export { PermissionDenied } from "./PermissionDenied";
 export { PopularEvent } from "./PopularEvent";
+export { EventTicket } from "./EventTicket";

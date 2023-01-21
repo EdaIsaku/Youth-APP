@@ -2,6 +2,13 @@ import { Dimensions } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
+export const POSITION = {
+  center: {
+    justifyContent: "center" as "center",
+    alignItems: "center" as "center",
+  },
+};
+
 export const SIZES = {
   sm: 10,
   md: 16,
@@ -46,6 +53,7 @@ export const COLORS = {
   black: "#000",
   transparentBlack: "rgba(0,0,0,0.7)",
   transparentBlack2: "rgba(0,0,0,0.8)",
+  transparentWhite: "rgba(255,255,255,0.2)",
   darkGrey: "#0e0e0e",
   grey: "#4d4d4d",
   lightGrey: "#ccc",
@@ -60,36 +68,29 @@ export const FONTS = {
   body1: {
     fontFamily: "Lato-Regular",
     fontSize: SIZES.body1,
-    // lineHeight: 36,
   },
   body2: {
     fontFamily: "Lato-Regular",
     fontSize: SIZES.body2,
-    // lineHeight: 30,
   },
   body3: {
     fontFamily: "Lato-Regular",
     fontSize: SIZES.body3,
-    // lineHeight: 22,
   },
   body4: {
     fontFamily: "Lato-Regular",
     fontSize: SIZES.body4,
-    // lineHeight: 22,
   },
   body5: {
     fontFamily: "Lato-Regular",
     fontSize: SIZES.body5,
-    // lineHeight: 22,
   },
   body5Thin: {
     fontFamily: "Lato-Black",
     fontSize: SIZES.body5,
-    // lineHeight: 22,
   },
   body5Light: {
     fontFamily: "Lato-Thin",
     fontSize: SIZES.body5,
-    // lineHeight: 22,
   },
 };
