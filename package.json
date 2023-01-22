@@ -33,9 +33,11 @@
     "react-native-phone-number-input": "^2.1.0",
     "react-native-qrcode-svg": "^6.1.2",
     "react-native-reanimated": "^2.13.0",
+    "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.18.7",
     "ts-node": "^10.9.1",
-    "twilio": "^3.84.0"
+    "twilio": "^3.84.0",
+    "expo-image-picker": "~14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

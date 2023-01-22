@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,15 +10,28 @@ import {
 } from "react-native";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
 import { ICONS, IMAGES, SETTINGS } from "../constants";
-import { SettingsElement } from "../components";
+import { CustomModal, SettingsElement } from "../components";
 
 export const User = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const handleEdit = () => {
+    setIsVisible(true);
+  };
   return (
     <SafeAreaView style={styles.container}>
+      <CustomModal
+        isVisible={isVisible}
+        handleClose={() => {
+          setIsVisible(false);
+        }}
+      />
       <Text style={styles.title}>My Profile</Text>
       <View style={styles.userContainer}>
         <View style={styles.profilePictureContainer}>
-          <TouchableOpacity style={styles.editIconContainer}>
+          <TouchableOpacity
+            style={styles.editIconContainer}
+            onPress={handleEdit}
+          >
             <Image source={ICONS.edit} style={styles.editIcon}></Image>
           </TouchableOpacity>
           <Image source={IMAGES.event1} style={styles.profilePicture}></Image>
