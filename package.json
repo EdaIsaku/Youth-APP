@@ -19,6 +19,7 @@
     "expo": "^47.0.0",
     "expo-font": "~11.0.1",
     "expo-haptics": "~12.0.1",
+    "expo-image-picker": "~14.0.2",
     "expo-linear-gradient": "^12.0.1",
     "expo-location": "^15.0.1",
     "expo-notifications": "^0.17.0",
@@ -29,15 +30,15 @@
     "react-dom": "18.1.0",
     "react-native": "0.70.5",
     "react-native-app-intro-slider": "^4.0.4",
-    "react-native-gesture-handler": "^2.9.0",
+    "react-native-modal": "^13.0.1",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-qrcode-svg": "^6.1.2",
     "react-native-reanimated": "^2.13.0",
-    "react-native-swipe-gestures": "^1.0.5",
+    "react-native-toast-message": "^2.1.5",
     "react-native-web": "~0.18.7",
     "ts-node": "^10.9.1",
     "twilio": "^3.84.0",
-    "expo-image-picker": "~14.0.2"
+    "expo-camera": "~13.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

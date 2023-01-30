@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/y_logo.jpg",
     "userInterfaceStyle": "light",
+
     "splash": {
       "image": "./assets/images/y_logo.jpg",
       "resizeMode": "contain",

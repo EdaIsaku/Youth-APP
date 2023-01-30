@@ -1,117 +1,114 @@
 import React from "react";
-import {
-  Image,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
-import GestureRecognizer from "react-native-swipe-gestures";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { ICONS } from "../constants";
-import { COLORS, POSITION, SIZES } from "../../theme/theme";
-
-const ACTIONS = [
-  { action: "Take Photo", icon: ICONS.camera },
-  { action: "Choose Photo", icon: ICONS.gallery },
-  { action: "Delete Photo", icon: ICONS.delete },
-  { action: "Cancel", icon: ICONS.close },
-];
+import { COLORS, SIZES } from "../../theme/theme";
+import Modal from "react-native-modal";
 
 export const CustomModal = ({
   isVisible,
+  hasProfilePicture,
+  handleOpenCamera,
+  handleOpenGallery,
+  handleDelete,
   handleClose,
 }: {
   isVisible: boolean;
+  hasProfilePicture: boolean;
+  handleOpenCamera: any;
+  handleOpenGallery: any;
+  handleDelete: any;
   handleClose: any;
 }) => {
-  const handleClick = (key: number) => {
-    switch (key) {
-      case 0:
-        console.log("Open camera");
+  let ACTIONS = [
+    { action: "Take Photo", icon: ICONS.camera },
+    { action: "Choose Photo", icon: ICONS.gallery },
+    ...(hasProfilePicture
+      ? [{ action: "Delete Photo", icon: ICONS.delete }]
+      : []),
+    { action: "Cancel", icon: ICONS.close },
+  ];
+
+  const handleClick = (action: string) => {
+    switch (action) {
+      case "Take Photo":
+        handleOpenCamera();
         break;
-      case 1:
-        console.log("Open gallery");
+      case "Choose Photo":
+        handleOpenGallery();
         break;
-      case 2:
-        console.log("Delete photo");
+      case "Delete Photo":
+        handleDelete();
         break;
-      case 3:
+      case "Cancel":
         handleClose();
     }
   };
   return (
-    <View style={styles.centeredView}>
-      <GestureRecognizer onSwipeDown={handleClose}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isVisible}
-          onRequestClose={() => {
-            handleClose;
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View
-              style={{
-                position: "absolute",
-                zIndex: 1,
-                top: 5,
-                width: 40,
-                height: 3,
-                backgroundColor: COLORS.lightGrey,
-                borderRadius: 5,
-              }}
-            ></View>
-            <View style={styles.modalView}>
-              {ACTIONS.map((el, idx) => {
-                return (
-                  <TouchableOpacity
-                    key={idx}
-                    style={styles.actionContainer}
-                    onPress={(ev) => handleClick(idx)}
-                  >
-                    <Image source={el.icon} style={styles.icon}></Image>
-                    <Text style={styles.modalText}>{el.action}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+    <View style={styles.container}>
+      <Modal
+        isVisible={isVisible}
+        swipeDirection={"down"}
+        onBackdropPress={handleClose}
+        onSwipeComplete={handleClose}
+        style={{ margin: 0 }}
+      >
+        <View style={styles.container}>
+          <View style={styles.topLine}></View>
+          <View style={styles.modalView}>
+            {ACTIONS.map((el, idx) => {
+              return (
+                <TouchableOpacity
+                  key={idx}
+                  style={styles.actionContainer}
+                  onPress={() => handleClick(el.action)}
+                >
+                  <Image source={el.icon} style={styles.icon}></Image>
+                  <Text style={styles.modalText}>{el.action}</Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
-        </Modal>
-      </GestureRecognizer>
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-    width: "100%",
+  container: {
+    width: SIZES.fullSize.width,
     height: "35%",
+    position: "absolute",
+    bottom: 0,
     justifyContent: "center",
     alignItems: "center",
-    bottom: 10,
-    position: "absolute",
   },
   modalView: {
     width: "100%",
     height: "100%",
-    margin: 20,
     backgroundColor: "#232323",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "space-around",
   },
   actionContainer: {
     width: "100%",
-    height: 50,
     flexDirection: "row",
-    justifyContent: "flex-start",
+    flexGrow: 4,
     alignItems: "center",
-    paddingLeft: 20,
     borderBottomColor: "rgba(255,255,255,0.05)",
     borderBottomWidth: 1,
+    paddingLeft: 20,
+  },
+  topLine: {
+    position: "absolute",
+    zIndex: 1,
+    top: 5,
+    width: 40,
+    height: 3,
+    backgroundColor: COLORS.lightGrey,
+    borderRadius: 5,
   },
   icon: {
     width: 30,
