@@ -7,3 +7,4 @@ export { PermissionDenied } from "./PermissionDenied";
 export { PopularEvent } from "./PopularEvent";
 export { EventTicket } from "./EventTicket";
 export { SettingsElement } from "./SettingsElement";
+export { CustomModal } from "./CustomModal";

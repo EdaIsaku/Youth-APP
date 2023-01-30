@@ -15,4 +15,11 @@ export const ICONS = {
   information: require("../../assets/icons/information_icon.png"),
   favourite: require("../../assets/icons/favourite_icon.png"),
   logOut: require("../../assets/icons/exit_icon.png"),
+  close: require("../../assets/icons/close_icon.png"),
+  camera: require("../../assets/icons/camera_icon.png"),
+  gallery: require("../../assets/icons/image-gallery_icon.png"),
+  delete: require("../../assets/icons/delete_icon.png"),
+  down: require("../../assets/icons/down_icon.png"),
+  photo: require("../../assets/icons/diaphragm_icon.png"),
+  flip: require("../../assets/icons/flip_icon.png"),
 };
