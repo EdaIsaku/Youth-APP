@@ -60,7 +60,12 @@ export const IntroPagination = ({
   };
 
   useEffect(() => {
-    console.log(allowLocation, allowNotifcation);
+    console.log(
+      "allowLocation",
+      allowLocation,
+      "allowNotifcation",
+      allowNotifcation
+    );
   }, []);
 
   const handleSkip = () => {

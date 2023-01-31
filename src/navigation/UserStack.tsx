@@ -1,26 +1,23 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { User, CustomCamera } from "../screens";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export const UserStack = () => {
   return (
-    <Tab.Navigator
+    <Stack.Navigator
       initialRouteName="User"
       screenOptions={() => ({
         headerShown: false,
-        tabBarStyle: {
-          display: "none",
-        },
       })}
     >
-      <Tab.Screen
+      <Stack.Screen
         name="UserStack"
         component={User}
         initialParams={{ username: "Eda Isaku" }}
       />
-      <Tab.Screen name="CustomCamera" component={CustomCamera} />
-    </Tab.Navigator>
+      <Stack.Screen name="CustomCamera" component={CustomCamera} />
+    </Stack.Navigator>
   );
 };

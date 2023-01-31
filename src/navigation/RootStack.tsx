@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, StyleSheet } from "react-native";
-import { Home, Search, Ticket, User, CustomCamera } from "../screens";
+import { Home, Search, Ticket } from "../screens";
 import { ICONS } from "../constants/icons";
 import { COLORS } from "../../theme/theme";
 import { STYLES } from "./RootTabStyles";
@@ -16,7 +16,7 @@ export const RootStack = () => {
         initialRouteName="Home"
         screenOptions={({ route }) => ({
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused }) => {
             let iconName;
             if (route.name === "Home") {
               iconName = ICONS.home;
@@ -34,7 +34,6 @@ export const RootStack = () => {
               />
             );
           },
-
           tabBarStyle: { ...STYLES.tabBarStyle },
           tabBarLabelStyle: { ...STYLES.tabBarLabelStyle },
           tabBarActiveTintColor: COLORS.secondary,
@@ -45,13 +44,6 @@ export const RootStack = () => {
         <Tab.Screen name="Search" component={Search} />
         <Tab.Screen name="Ticket" component={Ticket} />
         <Tab.Screen name="User" component={UserStack} />
-        {/* <Tab.Screen
-          name="User"
-          component={User}
-          options={{ headerShown: false }}
-          initialParams={{ username: "Eda Isaku" }}
-        />
-        <Tab.Screen name="CustomCamera" component={CustomCamera} /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -11,10 +11,12 @@ const allowNotificationAtom = atomWithStorage(
 );
 const allowLocationAtom = atomWithStorage("allowlocation", false, storage);
 const phoneNumberAtom = atomWithStorage("phoneNumber", "", storage);
+const photoURLAtom = atomWithStorage("photoURL", null, storage);
 
 export {
   showRealAppAtom,
   allowNotificationAtom,
   allowLocationAtom,
   phoneNumberAtom,
+  photoURLAtom,
 };
