@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,19 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
-import { ICONS, IMAGES, SETTINGS } from "../constants";
+import { ICONS, SETTINGS } from "../constants";
 import { CustomModal, SettingsElement } from "../components";
-import { openGallery } from "../../utils";
 import * as ImagePicker from "expo-image-picker";
+import { STYLES } from "../navigation/RootTabStyles";
+import { useAtom } from "jotai";
+import { photoURLAtom } from "../store";
+
+interface ImageURISource {
+  uri?: string | undefined;
+}
+
 export const User = ({
   navigation,
   route,
@@ -22,8 +30,18 @@ export const User = ({
 }) => {
   const { username } = route.params;
   const [isVisible, setIsVisible] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(IMAGES.event1);
+  const [photoURL, setPhotoURL] = useAtom(photoURLAtom);
 
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          ...STYLES.tabBarStyle,
+          display: "flex",
+        },
+      });
+    }, [])
+  );
   const handleEdit = () => {
     setIsVisible(true);
   };
@@ -33,13 +51,13 @@ export const User = ({
   };
   const handleOpenGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
     if (!result.canceled) {
-      setProfilePicture(result.assets[0].uri);
+      setPhotoURL(result.assets[0].uri);
       setIsVisible(false);
     }
   };
@@ -56,7 +74,7 @@ export const User = ({
       {
         text: "OK",
         onPress: () => {
-          setProfilePicture(null);
+          setPhotoURL("");
           setIsVisible(false);
         },
       },
@@ -67,7 +85,7 @@ export const User = ({
     <SafeAreaView style={styles.container}>
       <CustomModal
         isVisible={isVisible}
-        hasProfilePicture={profilePicture}
+        hasProfilePicture={Boolean(photoURL)}
         handleOpenCamera={handleOpenCamera}
         handleOpenGallery={handleOpenGallery}
         handleClose={handleClose}
@@ -82,13 +100,13 @@ export const User = ({
           >
             <Image source={ICONS.edit} style={styles.editIcon}></Image>
           </TouchableOpacity>
-          {profilePicture ? (
+          {photoURL ? (
             <Image
-              source={{ uri: profilePicture }}
+              source={{ uri: photoURL }}
               style={styles.profilePicture}
             ></Image>
           ) : (
-            <></>
+            ""
           )}
         </View>
         <Text style={styles.name}>{username}</Text>

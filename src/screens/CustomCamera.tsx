@@ -1,15 +1,18 @@
 import { Camera, CameraType } from "expo-camera";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Image, StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { ICONS, IMAGES } from "../constants";
 import { COLORS, SIZES } from "../../theme/theme";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useAtom } from "jotai";
+import { photoURLAtom } from "../store";
 
 export const CustomCamera = () => {
   const navigation = useNavigation();
   const cameraRef = useRef<any>(null);
   const [type, setType] = useState(CameraType.front);
   const [cameraPermission, setCameraPermission] = useState(false);
+  const [photoURL, setphotoURL] = useAtom(photoURLAtom);
   const [preview, setPreview] = useState(undefined);
 
   useEffect(() => {
@@ -18,14 +21,15 @@ export const CustomCamera = () => {
       setCameraPermission(cameraPermission.status === "granted");
     })();
   }, []);
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: {
-        display: "none",
-      },
-    });
-  }, [navigation]);
-
+  useFocusEffect(
+    useCallback(() => {
+      navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: "none",
+        },
+      });
+    }, [])
+  );
   const toggleCameraType = (type: CameraType) => {
     type === "back" ? setType(CameraType.front) : setType(CameraType.back);
   };
@@ -35,7 +39,7 @@ export const CustomCamera = () => {
   };
   const handleClose = () => {
     navigation.goBack();
-    setPreview(undefined);
+    setphotoURL(undefined);
   };
   return (
     <View style={styles.container}>
@@ -47,7 +51,13 @@ export const CustomCamera = () => {
       )}
       <View style={styles.takePhotoContainer}>
         <TouchableOpacity
-          onPress={preview ? () => setPreview(undefined) : handleClose}
+          onPress={
+            photoURL
+              ? () => {
+                  setphotoURL(null), setPreview(undefined);
+                }
+              : handleClose
+          }
           style={{
             position: "absolute",
             left: 30,
@@ -70,6 +80,10 @@ export const CustomCamera = () => {
             style={{
               position: "absolute",
               right: 30,
+            }}
+            onPress={() => {
+              navigation.goBack();
+              setphotoURL(preview);
             }}
           >
             <Text style={styles.text}>Use Photo</Text>
