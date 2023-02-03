@@ -1,5 +1,6 @@
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ICONS } from "../constants";
 
 const storage = createJSONStorage(() => AsyncStorage);
 
@@ -11,12 +12,12 @@ const allowNotificationAtom = atomWithStorage(
 );
 const allowLocationAtom = atomWithStorage("allowlocation", false, storage);
 const phoneNumberAtom = atomWithStorage("phoneNumber", "", storage);
-const photoURLAtom = atomWithStorage("photoURL", null, storage);
+const photoURIAtom = atomWithStorage("photoURI", null, storage);
 
 export {
   showRealAppAtom,
   allowNotificationAtom,
   allowLocationAtom,
   phoneNumberAtom,
-  photoURLAtom,
+  photoURIAtom,
 };

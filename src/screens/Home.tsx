@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
   popularContainer: {
     justifyContent: "center",
     alignItems: "center",
+    paddingLeft: 10,
+    paddingRight: 40,
   },
   leftContainer: {
     flex: 0.55,

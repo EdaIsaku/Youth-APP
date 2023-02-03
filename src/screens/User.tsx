@@ -15,7 +15,7 @@ import { CustomModal, SettingsElement } from "../components";
 import * as ImagePicker from "expo-image-picker";
 import { STYLES } from "../navigation/RootTabStyles";
 import { useAtom } from "jotai";
-import { photoURLAtom } from "../store";
+import { photoURIAtom } from "../store";
 
 interface ImageURISource {
   uri?: string | undefined;
@@ -30,7 +30,7 @@ export const User = ({
 }) => {
   const { username } = route.params;
   const [isVisible, setIsVisible] = useState(false);
-  const [photoURL, setPhotoURL] = useAtom(photoURLAtom);
+  const [photoURI, setPhotoURI] = useAtom(photoURIAtom);
 
   useFocusEffect(
     useCallback(() => {
@@ -55,9 +55,10 @@ export const User = ({
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      // base64: true,
     });
     if (!result.canceled) {
-      setPhotoURL(result.assets[0].uri);
+      setPhotoURI(result.assets[0].uri);
       setIsVisible(false);
     }
   };
@@ -74,7 +75,7 @@ export const User = ({
       {
         text: "OK",
         onPress: () => {
-          setPhotoURL("");
+          setPhotoURI("");
           setIsVisible(false);
         },
       },
@@ -85,7 +86,7 @@ export const User = ({
     <SafeAreaView style={styles.container}>
       <CustomModal
         isVisible={isVisible}
-        hasProfilePicture={Boolean(photoURL)}
+        hasProfilePicture={Boolean(photoURI)}
         handleOpenCamera={handleOpenCamera}
         handleOpenGallery={handleOpenGallery}
         handleClose={handleClose}
@@ -100,9 +101,9 @@ export const User = ({
           >
             <Image source={ICONS.edit} style={styles.editIcon}></Image>
           </TouchableOpacity>
-          {photoURL ? (
+          {photoURI ? (
             <Image
-              source={{ uri: photoURL }}
+              source={{ uri: photoURI }}
               style={styles.profilePicture}
             ></Image>
           ) : (

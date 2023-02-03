@@ -20,6 +20,6 @@ export const ICONS = {
   gallery: require("../../assets/icons/image-gallery_icon.png"),
   delete: require("../../assets/icons/delete_icon.png"),
   down: require("../../assets/icons/down_icon.png"),
-  photo: require("../../assets/icons/diaphragm_icon.png"),
+  photo: require("../../assets/icons/take_photo__icon.png"),
   flip: require("../../assets/icons/flip_icon.png"),
 };
