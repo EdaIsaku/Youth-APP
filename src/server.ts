@@ -16,6 +16,38 @@ app.get("/", (req: Request, res: Response) =>
   res.send("Welcome to Verfication service!")
 );
 
+//send the verification code to number :to
+app.post("/verify/:to", (req: Request, res: Response) => {
+  const { to } = req.params;
+  if (SERVICE_SID) {
+    client.verify.v2
+      .services(SERVICE_SID)
+      .verifications.create({ to, channel: "sms" })
+      .then((verification) => {
+        res.send(verification);
+      })
+      .catch((error) => {
+        res.json(error);
+      });
+  }
+});
+
+//check if the verification code :code is the one sent at :to
+app.post("/check/:to/:code", (req: Request, res: Response) => {
+  const { to, code } = req.params;
+  if (SERVICE_SID) {
+    client.verify
+      .services(SERVICE_SID)
+      .verificationChecks.create({ to, code })
+      .then((verification) => {
+        res.json(verification);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  }
+});
+
 app.post("/message", (req: Request, res: Response) => {
   client.messages
     .create({
@@ -35,34 +67,6 @@ app.post("/message", (req: Request, res: Response) => {
         success: false,
       });
     });
-});
-
-app.post("/verify/:to", (req: Request, res: Response) => {
-  const { to } = req.params;
-  if (SERVICE_SID) {
-    client.verify.v2
-      .services(SERVICE_SID)
-      .verifications.create({ to, channel: "sms" })
-      .then((verification) => res.json(verification))
-      .catch((error) => {
-        res.json(error);
-      });
-  }
-});
-
-app.post("/check/:to/:code", (req: Request, res: Response) => {
-  const { to, code } = req.params;
-  if (SERVICE_SID) {
-    client.verify
-      .services(SERVICE_SID)
-      .verificationChecks.create({ to, code })
-      .then((verification) => {
-        res.json(verification);
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  }
 });
 
 app.listen(PORT, () => {

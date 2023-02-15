@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import PhoneInput from "react-native-phone-number-input";
+import PhoneInput, { isValidNumber } from "react-native-phone-number-input";
 import { COLORS, SIZES } from "../../theme/theme";
 import { CustomButton } from "./CustomButton";
-import { phoneNumberAtom } from "../store";
+import { phoneNumberAtom, codeSendAtom } from "../store";
 import { useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 
-const BASE_URL = "http://192.168.0.106:3000";
+const BASE_URL = "http://192.168.1.89:3000";
 
 export const PhoneNumber = () => {
   const [value, setValue] = useState("");
@@ -15,11 +16,11 @@ export const PhoneNumber = () => {
   const [valid, setValid] = useState(false);
   const phoneInput = useRef<PhoneInput>(null);
   const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
+  const [codeSend, setCodeSend] = useAtom(codeSendAtom);
 
   const handleChangeText = (text: string) => {
     setValue(text);
   };
-
   const sendCode = (number: any) => {
     fetch(`${BASE_URL}/verify/${number}`, {
       method: "POST",
@@ -31,11 +32,13 @@ export const PhoneNumber = () => {
         res.json();
       })
       .then((res) => {
-        console.log(res);
+        console.log("res", res);
       });
   };
 
-  const verifyCode = () => {};
+  useEffect(() => {
+    setCodeSend((prev: any) => (prev ? RESET : false));
+  }, [codeSend]);
 
   const handlePress = () => {
     const checkValid = phoneInput.current?.isValidNumber(value);
@@ -44,7 +47,10 @@ export const PhoneNumber = () => {
       phoneInput.current?.getNumberAfterPossiblyEliminatingZero()
         .formattedNumber;
     setPhoneNumber(formatedNumber);
-    // sendCode(formatedNumber);
+    if (valid) {
+      sendCode(phoneNumber);
+      setCodeSend(true);
+    }
   };
 
   return (

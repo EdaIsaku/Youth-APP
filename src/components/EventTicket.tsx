@@ -2,8 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
 import QRCode from "react-native-qrcode-svg";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Animated, { useSharedValue } from "react-native-reanimated";
+
+import { useAtom } from "jotai";
+import { phoneNumberAtom } from "../store";
+
 export const EventTicket = ({
   name,
   lName,
@@ -13,6 +15,8 @@ export const EventTicket = ({
   lName: String;
   ticketNumber: Number;
 }) => {
+  const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
+
   const initials = name[0].toUpperCase();
 
   return (
@@ -26,7 +30,7 @@ export const EventTicket = ({
           <View style={styles.initialsContainer}>
             <Text style={styles.initials}>{initials}</Text>
           </View>
-          <QRCode size={190} value="EDAISAKU" />
+          <QRCode size={220} value={`${phoneNumber}`} />
         </View>
         <View style={styles.eventDataContainer}>
           <View style={styles.eventNameContainer}>
@@ -60,12 +64,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
-    height: "80%",
+    height: "85%",
   },
   lowerContainer: {
     ...POSITION.center,
     width: "100%",
-    height: "20%",
+    height: "15%",
     paddingBottom: SIZES.padding * 2,
     borderTopColor: COLORS.transparentWhite,
     borderTopWidth: 0.5,
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 30,
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.white,
     borderColor: COLORS.transparentWhite,
     borderWidth: 1,
   },
@@ -105,14 +109,14 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   QRContainer: {
-    width: 220,
-    height: 250,
+    width: 250,
+    height: 270,
     borderRadius: 25,
     backgroundColor: COLORS.black,
     borderWidth: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    paddingBottom: 25,
+    paddingBottom: 20,
     borderColor: "#020202",
     shadowColor: "#515151",
     shadowOffset: {

@@ -1,10 +1,15 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 
 import { SLIDES } from "../constants";
 import { IntroPage, IntroPagination } from "../components/index";
+import { useAtom } from "jotai";
+import { showRealAppAtom } from "../store";
 
 export const IntroScreens = () => {
+  const [showRealApp, setShowRealApp] = useAtom(showRealAppAtom);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+
   const slider = useRef<AppIntroSlider>(null);
   type Item = typeof SLIDES[0];
 
@@ -18,6 +23,10 @@ export const IntroScreens = () => {
     return <IntroPagination activeIndex={activeIndex} slider={slider} />;
   };
 
+  const onDone = () => {
+    setShowRealApp(true);
+  };
+
   return (
     <AppIntroSlider
       ref={slider}
@@ -25,6 +34,9 @@ export const IntroScreens = () => {
       keyExtractor={_keyExtractor}
       renderItem={_renderItem}
       renderPagination={_renderPagination}
+      scrollEnabled={scrollEnabled}
+      onSlideChange={(index, lastIndex) => {}}
+      onDone={onDone}
     />
   );
 };

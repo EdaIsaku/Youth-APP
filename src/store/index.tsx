@@ -12,6 +12,7 @@ const allowNotificationAtom = atomWithStorage(
 );
 const allowLocationAtom = atomWithStorage("allowlocation", false, storage);
 const phoneNumberAtom = atomWithStorage("phoneNumber", "", storage);
+const codeSendAtom = atomWithStorage("codeSend", false, storage);
 const photoURIAtom = atomWithStorage("photoURI", null, storage);
 
 export {
@@ -19,5 +20,6 @@ export {
   allowNotificationAtom,
   allowLocationAtom,
   phoneNumberAtom,
+  codeSendAtom,
   photoURIAtom,
 };

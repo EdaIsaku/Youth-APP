@@ -32,6 +32,8 @@ export const SIZES = {
   body4: 14,
   body5: 12,
 
+  cellSize: 70,
+
   fullSize: {
     width: "100%",
     height: "100%",
