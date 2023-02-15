@@ -41,7 +41,7 @@ const SLIDES: Slide[] = [
   {
     key: 5,
     title: "Verification",
-    text: "Please enter the 4-digit code sent to your number.",
+    text: "Please enter the 4-digit code we send to your phone number.",
     component: <VerifyNumber />,
   },
 ];

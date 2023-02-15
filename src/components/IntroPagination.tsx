@@ -14,7 +14,13 @@ import { COLORS, FONTS } from "../../theme/theme";
 import { CustomIntroButton } from "./CustomIntroButton";
 import { SIZES } from "../../theme/theme";
 import { useAtom } from "jotai";
-import { allowNotificationAtom, allowLocationAtom } from "../store";
+import { RESET } from "jotai/utils";
+import {
+  allowNotificationAtom,
+  allowLocationAtom,
+  phoneNumberAtom,
+  codeSendAtom,
+} from "../store";
 
 export const IntroPagination = ({
   activeIndex,
@@ -28,6 +34,8 @@ export const IntroPagination = ({
     allowNotificationAtom
   );
   const [allowLocation, setAllowLocation] = useAtom(allowLocationAtom);
+  const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
+  const [codeSend, setCodeSend] = useAtom(codeSendAtom);
 
   switch (activeIndex) {
     case 1:
@@ -43,30 +51,37 @@ export const IntroPagination = ({
   const handleNotificationPermission = async () => {
     const settings = await Notifications.getPermissionsAsync();
     if (settings.granted) {
-      console.log("notification permision set");
       setAllowNotification(true);
     } else {
-      setAllowNotification(false);
+      Linking.openSettings();
     }
   };
 
-  const handelLocationPermission = async () => {
+  const handleLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status === "granted") {
       setAllowLocation(true);
     } else {
-      setAllowLocation(false);
+      Linking.openSettings();
     }
   };
 
   useEffect(() => {
-    console.log(
-      "allowLocation",
-      allowLocation,
-      "allowNotifcation",
-      allowNotifcation
-    );
-  }, []);
+    if (activeIndex === 3) {
+      codeSend && goToNextSlide();
+    }
+  }, [codeSend]);
+  // useEffect(() => {
+  //   console.log(
+  //     "allowLocation: ",
+  //     allowLocation,
+  //     "allowNotifcation: ",
+  //     allowNotifcation
+  //   );
+
+  //   setAllowLocation((prev) => (prev ? RESET : false));
+  //   setAllowNotification((prev) => (prev ? false : false));
+  // }, []);
 
   const handleSkip = () => {
     slider.current.goToSlide(activeIndex + 1);
@@ -80,10 +95,10 @@ export const IntroPagination = ({
         goToNextSlide();
         break;
       case 1:
-        allowNotifcation ? goToNextSlide() : Linking.openSettings();
+        allowNotifcation ? goToNextSlide() : handleNotificationPermission();
         break;
       case 2:
-        allowLocation ? goToNextSlide() : handelLocationPermission();
+        allowLocation ? goToNextSlide() : handleLocationPermission();
         break;
     }
   };
