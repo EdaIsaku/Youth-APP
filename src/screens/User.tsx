@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
-import { ICONS, SETTINGS } from "../constants";
+import { ICONS, SETTINGS, IMAGES } from "../constants";
 import { CustomModal, SettingsElement } from "../components";
 import * as ImagePicker from "expo-image-picker";
 import { STYLES } from "../navigation/RootTabStyles";
@@ -73,7 +73,7 @@ export const User = ({
         style: "cancel",
       },
       {
-        text: "OK",
+        text: "Yes",
         onPress: () => {
           setPhotoURI("");
           setIsVisible(false);
@@ -107,7 +107,7 @@ export const User = ({
               style={styles.profilePicture}
             ></Image>
           ) : (
-            ""
+            <Image source={IMAGES.avatar} style={styles.avatarPicture}></Image>
           )}
         </View>
         <Text style={styles.name}>{username}</Text>
@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     ...POSITION.center,
     borderColor: COLORS.secondary,
     borderWidth: 3,
+    backgroundColor: COLORS.white,
   },
   title: {
     flex: 0.1,
@@ -181,6 +182,11 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: "100%",
     height: "100%",
+    borderRadius: 60,
+  },
+  avatarPicture: {
+    width: "80%",
+    height: "80%",
     borderRadius: 60,
   },
   name: {

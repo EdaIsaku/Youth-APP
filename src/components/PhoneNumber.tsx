@@ -7,7 +7,7 @@ import { phoneNumberAtom, codeSendAtom } from "../store";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 
-const BASE_URL = "http://192.168.1.89:3000";
+const BASE_URL = "http://192.168.0.103:3000";
 
 export const PhoneNumber = () => {
   const [value, setValue] = useState("");

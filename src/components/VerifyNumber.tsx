@@ -15,7 +15,7 @@ import { useAtom } from "jotai";
 
 const { Value, Text: AnimatedText } = Animated;
 const CELL_COUNT = 4;
-const BASE_URL = "http://192.168.1.89:3000";
+const BASE_URL = "http://192.168.0.103:3000";
 
 const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
 const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));

@@ -11,6 +11,7 @@ export const ICONS = {
   time: require("../../assets/icons/clock-icon.png"),
   edit: require("../../assets/icons/edit-image-icon.png"),
   right: require("../../assets/icons/right.png"),
+  left: require("../../assets/icons/left_arrow.png"),
   settings: require("../../assets/icons/settings_icon.png"),
   information: require("../../assets/icons/information_icon.png"),
   favourite: require("../../assets/icons/favourite_icon.png"),
@@ -22,4 +23,5 @@ export const ICONS = {
   down: require("../../assets/icons/down_icon.png"),
   photo: require("../../assets/icons/take_photo__icon.png"),
   flip: require("../../assets/icons/flip_icon.png"),
+  pin: require("../../assets/icons/pin_icon.png"),
 };
