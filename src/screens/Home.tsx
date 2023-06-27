@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback } from "react";
 import {
   Text,
   View,
@@ -6,17 +6,41 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { COLORS, SIZES } from "../../theme/theme";
 import { IMAGES, EVENTS } from "../constants";
 import { PopularEvent } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { STYLES } from "../navigation/RootTabStyles";
+
+// import openMap from "react-native-open-maps";
 
 interface Navigation {
   navigate(destination: string): void;
 }
 
 export const Home = ({ navigation }: { navigation: Navigation }) => {
+  const customNavigation = useNavigation();
+  useFocusEffect(
+    useCallback(() => {
+      customNavigation.getParent()?.setOptions({
+        tabBarStyle: {
+          ...STYLES.tabBarStyle,
+          display: "flex",
+        },
+      });
+    }, [])
+  );
+
+  // const _goToYosemite = () => {
+  //   openMap({
+  //     latitude: 41.3275,
+  //     longitude: 19.8187,
+  //     waypoints: [],
+  //   });
+  // };
   return (
     <LinearGradient
       // Background Linear Gradient
@@ -33,7 +57,15 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
       <SafeAreaView style={styles.container}>
         <View style={styles.upContainer}>
           <Text style={styles.title}>YOUTH</Text>
-          <View style={styles.searchMapContainer}>
+          <TouchableOpacity
+            // disabled={true}
+            onPress={() => {
+              // _goToYosemite();
+              navigation.navigate("Map");
+              console.log("Go to Map");
+            }}
+            style={styles.searchMapContainer}
+          >
             <View style={styles.leftContainer}>
               <Text style={styles.mapTitle}>Find through the map</Text>
               <Text style={styles.mapSubtitle}>Tirana, Albania</Text>
@@ -41,7 +73,7 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
             <View style={styles.rightContainer}>
               <Image source={IMAGES.mini_map} style={styles.mapImage}></Image>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.downContainer}>
           <Text style={styles.subtitle}>Explore al the events</Text>

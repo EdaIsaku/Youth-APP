@@ -6,6 +6,7 @@ import { ICONS } from "../constants/icons";
 import { COLORS } from "../../theme/theme";
 import { STYLES } from "./RootTabStyles";
 import { UserStack } from "./UserStack";
+import { HomeStack } from "./HomeStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export const RootStack = () => {
           tabBarInactiveTintColor: COLORS.lightGrey,
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Search" component={Search} />
         <Tab.Screen name="Ticket" component={Ticket} />
         <Tab.Screen name="User" component={UserStack} />
