@@ -15,7 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { STYLES } from "../navigation/RootTabStyles";
 
-// import openMap from "react-native-open-maps";
+import openMap from "react-native-open-maps";
 
 interface Navigation {
   navigate(destination: string): void;
@@ -34,13 +34,13 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
     }, [])
   );
 
-  // const _goToYosemite = () => {
-  //   openMap({
-  //     latitude: 41.3275,
-  //     longitude: 19.8187,
-  //     waypoints: [],
-  //   });
-  // };
+  const _goToYosemite = () => {
+    openMap({
+      latitude: 41.3275,
+      longitude: 19.8187,
+      waypoints: [],
+    });
+  };
   return (
     <LinearGradient
       // Background Linear Gradient
@@ -58,11 +58,10 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
         <View style={styles.upContainer}>
           <Text style={styles.title}>YOUTH</Text>
           <TouchableOpacity
-            // disabled={true}
             onPress={() => {
-              // _goToYosemite();
-              navigation.navigate("Map");
-              console.log("Go to Map");
+              _goToYosemite();
+              // navigation.navigate("Map");
+              // console.log("Go to Map");
             }}
             style={styles.searchMapContainer}
           >
