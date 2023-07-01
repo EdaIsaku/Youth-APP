@@ -2,13 +2,13 @@ import { CustomButton } from "./CustomButton";
 import { COLORS, SIZES } from "../../theme/theme";
 import React, { useState, useEffect } from "react";
 import { Animated, SafeAreaView, StyleSheet, Platform } from "react-native";
-import { RESET } from "jotai/utils";
 import {
   CodeField,
   Cursor,
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
+import Toast, { BaseToast } from "react-native-toast-message";
 
 import { phoneNumberAtom, showRealAppAtom } from "../store";
 import { useAtom } from "jotai";
@@ -56,6 +56,33 @@ export const VerifyNumber = () => {
     setShowRealApp((prev: any) => false);
   }, []);
 
+  const toastConfig = {
+    info: (props: any) => (
+      <BaseToast
+        {...props}
+        style={{ borderLeftColor: "orange" }}
+        text1Style={{
+          fontSize: 15,
+          color: "orange",
+        }}
+        text2Style={{
+          fontSize: 13,
+          paddingTop: 3,
+        }}
+      />
+    ),
+  };
+
+  const showToast = () => {
+    Toast.show({
+      type: "info",
+      text1: "Warning",
+      text2: "Please check messages and write code again!",
+      position: "bottom",
+      bottomOffset: 350,
+    });
+  };
+
   const handlePress = () => {
     if (value.length == 4)
       fetch(`${BASE_URL}/check/${phoneNumber}/${value}`, {
@@ -69,7 +96,7 @@ export const VerifyNumber = () => {
           if (res.status === "approved") {
             setShowRealApp(true);
           } else {
-            console.log("resend code");
+            showToast();
             setValue("");
           }
         });
@@ -139,6 +166,7 @@ export const VerifyNumber = () => {
         textContentType="oneTimeCode"
         renderCell={renderCell}
       />
+      <Toast config={toastConfig} />
       <CustomButton buttonText="Finish" handlePress={handlePress} />
     </SafeAreaView>
   );

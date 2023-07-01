@@ -31,7 +31,6 @@ export const GooglePlacesInput = () => {
         }}
         nearbyPlacesAPI="GooglePlacesSearch"
         onPress={(data, details = null) => {
-          console.log("pressed");
           // 'details' is provided when fetchDetails = true
           console.log("data", data, details);
         }}
