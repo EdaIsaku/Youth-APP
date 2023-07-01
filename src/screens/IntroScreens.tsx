@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
 
 import { SLIDES } from "../constants";
 import { IntroPage, IntroPagination } from "../components/index";
 import { useAtom } from "jotai";
-import { showRealAppAtom } from "../store";
+import { showRealAppAtom, scrollEnabledAtom } from "../store";
 
 export const IntroScreens = () => {
   const [showRealApp, setShowRealApp] = useAtom(showRealAppAtom);
-  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [scrollEnabled, setScrollEnabled] = useAtom(scrollEnabledAtom);
 
   const slider = useRef<AppIntroSlider>(null);
-  type Item = typeof SLIDES[0];
+  type Item = (typeof SLIDES)[0];
 
   const _keyExtractor = (item: { key: any }) => item.key;
 

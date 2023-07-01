@@ -1,8 +1,8 @@
 import { CustomButton } from "./CustomButton";
 import { COLORS, SIZES } from "../../theme/theme";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Animated, SafeAreaView, StyleSheet, Platform } from "react-native";
-
+import { RESET } from "jotai/utils";
 import {
   CodeField,
   Cursor,
@@ -15,7 +15,7 @@ import { useAtom } from "jotai";
 
 const { Value, Text: AnimatedText } = Animated;
 const CELL_COUNT = 4;
-const BASE_URL = "http://192.168.0.103:3000";
+const BASE_URL = "http://192.168.0.104:3000";
 
 const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
 const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));
@@ -25,9 +25,9 @@ const animateCell = ({
   index,
   isFocused,
 }: {
-  hasValue: any;
-  index: any;
-  isFocused: any;
+  hasValue: boolean;
+  index: number;
+  isFocused: boolean;
 }) => {
   Animated.parallel([
     Animated.timing(animationsColor[index], {
@@ -52,23 +52,27 @@ export const VerifyNumber = () => {
     setValue,
   });
 
-  const handlePress = () => {
-    fetch(`${BASE_URL}/check/${phoneNumber}/${value}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.status === "approved");
+  useEffect(() => {
+    setShowRealApp((prev: any) => false);
+  }, []);
 
-        if (res.status === "approved") {
-          setShowRealApp(true);
-        } else {
-          console.log("resend code");
-        }
-      });
+  const handlePress = () => {
+    if (value.length == 4)
+      fetch(`${BASE_URL}/check/${phoneNumber}/${value}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === "approved") {
+            setShowRealApp(true);
+          } else {
+            console.log("resend code");
+            setValue("");
+          }
+        });
   };
 
   const renderCell = ({
@@ -76,9 +80,9 @@ export const VerifyNumber = () => {
     symbol,
     isFocused,
   }: {
-    index: any;
+    index: number;
     symbol: any;
-    isFocused: any;
+    isFocused: boolean;
   }) => {
     const hasValue = Boolean(symbol);
     const animatedCellStyle = {
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     borderRadius: SIZES.border - 2,
-    color: "#3759b8",
+    color: COLORS.secondary,
     backgroundColor: "#fff",
     // IOS
     shadowColor: "#000",

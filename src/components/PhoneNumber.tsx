@@ -7,7 +7,7 @@ import { phoneNumberAtom, codeSendAtom } from "../store";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 
-const BASE_URL = "http://192.168.0.103:3000";
+const BASE_URL = "http://192.168.0.104:3000";
 
 export const PhoneNumber = () => {
   const [value, setValue] = useState("");
@@ -35,10 +35,6 @@ export const PhoneNumber = () => {
         console.log("res", res);
       });
   };
-
-  useEffect(() => {
-    setCodeSend((prev: any) => (prev ? RESET : false));
-  }, [codeSend]);
 
   const handlePress = () => {
     const checkValid = phoneInput.current?.isValidNumber(value);

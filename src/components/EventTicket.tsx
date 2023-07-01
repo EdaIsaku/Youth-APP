@@ -1,10 +1,25 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Animated } from "react-native";
 import React from "react";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
 import QRCode from "react-native-qrcode-svg";
 
 import { useAtom } from "jotai";
 import { phoneNumberAtom } from "../store";
+
+const animation = new Animated.Value(0);
+
+Animated.timing(animation, {
+  toValue: 1,
+  duration: 200,
+  useNativeDriver: true,
+}).start();
+
+const rotateInterpolate = animation.interpolate({
+  inputRange: [0, 1],
+  outputRange: ["0deg", "180deg"],
+});
+const animatedStyles = { transform: [{ rotate: rotateInterpolate }] };
+const logoStyles = [animatedStyles];
 
 export const EventTicket = ({
   name,
@@ -26,12 +41,16 @@ export const EventTicket = ({
         <View style={styles.usernameContainer}>
           <Text style={styles.name}>{`${name} ${lName}`}</Text>
         </View>
-        <View style={styles.QRContainer}>
+        <Animated.View
+          style={
+            (styles.QRContainer, { transform: [{ rotate: rotateInterpolate }] })
+          }
+        >
           <View style={styles.initialsContainer}>
             <Text style={styles.initials}>{initials}</Text>
           </View>
           <QRCode size={220} value={`${phoneNumber}`} />
-        </View>
+        </Animated.View>
         <View style={styles.eventDataContainer}>
           <View style={styles.eventNameContainer}>
             <Text style={styles.eventName}>YOUTH</Text>

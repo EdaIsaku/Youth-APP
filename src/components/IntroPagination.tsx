@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import * as Notifications from "expo-notifications";
-import * as Location from "expo-location";
+// import * as Location from "expo-location";
 import { SLIDES } from "../constants";
 import { COLORS, FONTS } from "../../theme/theme";
 import { CustomIntroButton } from "./CustomIntroButton";
@@ -17,9 +17,11 @@ import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 import {
   allowNotificationAtom,
-  allowLocationAtom,
+  // allowLocationAtom,
+  scrollEnabledAtom,
   phoneNumberAtom,
   codeSendAtom,
+  showRealAppAtom,
 } from "../store";
 
 export const IntroPagination = ({
@@ -33,16 +35,17 @@ export const IntroPagination = ({
   const [allowNotifcation, setAllowNotification] = useAtom(
     allowNotificationAtom
   );
-  const [allowLocation, setAllowLocation] = useAtom(allowLocationAtom);
+  // const [allowLocation, setAllowLocation] = useAtom(allowLocationAtom);
   const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
   const [codeSend, setCodeSend] = useAtom(codeSendAtom);
+  const [scrollEnabled, setScrollEnabled] = useAtom(scrollEnabledAtom);
 
   switch (activeIndex) {
     case 1:
       buttonText = "Allow Notification";
       break;
     case 2:
-      buttonText = "Allow Location";
+      buttonText = "Next";
       break;
     default:
       buttonText = "";
@@ -57,35 +60,32 @@ export const IntroPagination = ({
     }
   };
 
-  const handleLocationPermission = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status === "granted") {
-      setAllowLocation(true);
-    } else {
-      Linking.openSettings();
-    }
-  };
+  // const handleLocationPermission = async () => {
+  //   let { status } = await Location.requestForegroundPermissionsAsync();
+  //   if (status === "granted") {
+  //     setAllowLocation(true);
+  //   } else {
+  //     Linking.openSettings();
+  //   }
+  // };
 
+  //Disable scroll in VerificateNumber screen
+  useEffect(() => {
+    activeIndex === 3 && !codeSend
+      ? setScrollEnabled(false)
+      : setScrollEnabled(true);
+  }, [activeIndex]);
+
+  // useEffect(() => {
+  //   console.log(allowNotifcation);
+  // }, []);
+  //Go to Last screen when code is send
   useEffect(() => {
     if (activeIndex === 3) {
       codeSend && goToNextSlide();
     }
   }, [codeSend]);
-  // useEffect(() => {
-  //   console.log(
-  //     "allowLocation: ",
-  //     allowLocation,
-  //     "allowNotifcation: ",
-  //     allowNotifcation
-  //   );
 
-  //   setAllowLocation((prev) => (prev ? RESET : false));
-  //   setAllowNotification((prev) => (prev ? false : false));
-  // }, []);
-
-  const handleSkip = () => {
-    slider.current.goToSlide(activeIndex + 1);
-  };
   const goToNextSlide = () => {
     slider.current.goToSlide(activeIndex + 1);
   };
@@ -98,7 +98,8 @@ export const IntroPagination = ({
         allowNotifcation ? goToNextSlide() : handleNotificationPermission();
         break;
       case 2:
-        allowLocation ? goToNextSlide() : handleLocationPermission();
+        goToNextSlide();
+        // allowLocation ? goToNextSlide() : handleLocationPermission();
         break;
     }
   };
@@ -123,8 +124,8 @@ export const IntroPagination = ({
         </View>
 
         <View style={styles.buttonContainer}>
-          {activeIndex === 1 || activeIndex === 2 ? (
-            <TouchableOpacity style={styles.skip} onPress={handleSkip}>
+          {activeIndex === 1 ? (
+            <TouchableOpacity style={styles.skip} onPress={goToNextSlide}>
               <Text style={styles.skipText}>Skip</Text>
             </TouchableOpacity>
           ) : (

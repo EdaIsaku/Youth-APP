@@ -47,7 +47,8 @@ export const SIZES = {
 
 export const COLORS = {
   primary: "#462964",
-  secondary: "#a044ff",
+  secondary: "#7B1DBC",
+  // secondary: "#a044ff",
   third: "#5EE2F0",
 
   //base

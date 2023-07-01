@@ -20,7 +20,7 @@ export const CustomButton = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    height: 60,
+    height: 50,
     width: "80%",
     flexDirection: "row",
     alignItems: "center",
