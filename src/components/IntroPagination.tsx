@@ -35,6 +35,7 @@ export const IntroPagination = ({
   const [allowNotifcation, setAllowNotification] = useAtom(
     allowNotificationAtom
   );
+  const [showRealApp, setShowRealApp] = useAtom(showRealAppAtom);
   // const [allowLocation, setAllowLocation] = useAtom(allowLocationAtom);
   const [phoneNumber, setPhoneNumber] = useAtom(phoneNumberAtom);
   const [codeSend, setCodeSend] = useAtom(codeSendAtom);
@@ -70,15 +71,13 @@ export const IntroPagination = ({
   // };
 
   //Disable scroll in VerificateNumber screen
+
   useEffect(() => {
     activeIndex === 3 && !codeSend
       ? setScrollEnabled(false)
       : setScrollEnabled(true);
   }, [activeIndex]);
 
-  // useEffect(() => {
-  //   console.log(allowNotifcation);
-  // }, []);
   //Go to Last screen when code is send
   useEffect(() => {
     if (activeIndex === 3) {
