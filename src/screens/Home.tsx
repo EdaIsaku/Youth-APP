@@ -8,14 +8,13 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { COLORS, SIZES } from "../../theme/theme";
+import { COLORS, SIZES, POSITION } from "../../theme/theme";
 import { IMAGES, EVENTS } from "../constants";
 import { PopularEvent } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { STYLES } from "../navigation/RootTabStyles";
-
-// import openMap from "react-native-open-maps";
+import openMap from "react-native-open-maps";
 
 interface Navigation {
   navigate(destination: string): void;
@@ -34,76 +33,76 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
     }, [])
   );
 
-  // const _goToYosemite = () => {
-  //   openMap({
-  //     latitude: 41.3275,
-  //     longitude: 19.8187,
-  //     waypoints: [],
-  //   });
-  // };
+  const _goToYosemite = () => {
+    openMap({
+      latitude: 41.3275,
+      longitude: 19.8187,
+      waypoints: [],
+    });
+  };
   return (
-    <LinearGradient
-      // Background Linear Gradient
-      colors={[COLORS.grey, COLORS.grey]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0.7, y: 1 }}
-      style={{
-        width: "100%",
-        height: "100%",
-        justifyContent: "space-around",
-        alignItems: "center",
-      }}
-    >
-      <SafeAreaView style={styles.container}>
-        <View style={styles.upContainer}>
-          <Text style={styles.title}>YOUTH</Text>
-          <TouchableOpacity
-            // disabled={true}
-            onPress={() => {
-              // _goToYosemite();
-              navigation.navigate("Map");
-              console.log("Go to Map");
-            }}
-            style={styles.searchMapContainer}
-          >
-            <View style={styles.leftContainer}>
-              <Text style={styles.mapTitle}>Find through the map</Text>
-              <Text style={styles.mapSubtitle}>Tirana, Albania</Text>
-            </View>
-            <View style={styles.rightContainer}>
-              <Image source={IMAGES.mini_map} style={styles.mapImage}></Image>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.downContainer}>
-          <Text style={styles.subtitle}>Explore al the events</Text>
-          <ScrollView
-            horizontal={true}
-            contentContainerStyle={styles.popularContainer}
-            showsHorizontalScrollIndicator={false}
-          >
-            {EVENTS.map((el, idx) => {
-              return (
-                <PopularEvent
-                  key={idx}
-                  eventName={el.eventName}
-                  place={el.place}
-                  time={el.time}
-                  image={el.image}
-                />
-              );
-            })}
-          </ScrollView>
-        </View>
-      </SafeAreaView>
-    </LinearGradient>
+    // <LinearGradient
+    //   // Background Linear Gradient
+    //   colors={["#ffffff", "#eeeeee"]}
+    //   start={{ x: 0, y: 0 }}
+    //   end={{ x: 0.7, y: 1 }}
+    //   style={{
+    //     width: "100%",
+    //     height: "100%",
+    //     justifyContent: "space-around",
+    //     alignItems: "center",
+    //   }}
+    // >
+    <SafeAreaView style={styles.container}>
+      <View style={styles.upContainer}>
+        <Text style={styles.title}>YOUTH</Text>
+        <TouchableOpacity
+          onPress={() => {
+            _goToYosemite();
+            // navigation.navigate("Map");
+          }}
+          style={styles.searchMapContainer}
+        >
+          <View style={styles.leftContainer}>
+            <Text style={styles.mapTitle}>Find through the map</Text>
+            <Text style={styles.mapSubtitle}>Tirana, Albania</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Image source={IMAGES.mini_map} style={styles.mapImage}></Image>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.middleContainer}>
+        <Text style={styles.subtitle}>Collections</Text>
+        <ScrollView
+          horizontal={true}
+          contentContainerStyle={styles.popularContainer}
+          showsHorizontalScrollIndicator={false}
+        >
+          {EVENTS.map((el, idx) => {
+            return (
+              <PopularEvent
+                key={idx}
+                eventName={el.eventName}
+                eventType={el.eventType}
+                image={el.image}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
+      <View style={styles.downContainer}>
+        <Text style={styles.subtitle}>Upcoming</Text>
+      </View>
+    </SafeAreaView>
+    // </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   upContainer: {
@@ -112,24 +111,28 @@ const styles = StyleSheet.create({
     flex: 0.2,
     marginHorizontal: 10,
   },
+  middleContainer: {
+    flex: 0.45,
+  },
   downContainer: {
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flex: 0.7,
+    backgroundColor: "teal",
+    // ...POSITION.center,
+    flex: 0.25,
+    width: "100%",
     marginBottom: 80,
   },
   searchMapContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    backgroundColor: COLORS.black,
+    backgroundColor: COLORS.white,
     borderRadius: SIZES.border * 2,
-    shadowColor: COLORS.white,
+    shadowColor: COLORS.secondary,
     shadowOffset: {
       height: 0,
       width: 0,
     },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
   popularContainer: {
     justifyContent: "center",
@@ -151,33 +154,33 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: "center",
-    color: COLORS.white,
+    color: COLORS.black,
     fontFamily: "Lato-Bold",
     fontSize: SIZES.h1,
     paddingBottom: 15,
+    marginTop: 10,
   },
   mapTitle: {
     paddingBottom: 5,
-    color: COLORS.white,
-    fontSize: SIZES.body3,
+    color: COLORS.black,
+    fontSize: SIZES.body2,
     fontFamily: "Lato-Regular",
   },
   mapSubtitle: {
-    color: COLORS.lightGrey,
-    fontSize: SIZES.body4,
+    color: COLORS.darkGrey,
+    fontSize: SIZES.body3,
     fontFamily: "Lato-Light",
   },
   mapImage: {
     borderRadius: SIZES.border,
-    width: "85%",
-    height: "85%",
+    width: "80%",
+    height: "80%",
   },
   subtitle: {
-    color: COLORS.white,
-    alignSelf: "center",
+    color: COLORS.black,
     fontFamily: "Lato-Bold",
-    fontSize: SIZES.h2,
-    paddingTop: 30,
-    paddingBottom: 15,
+    fontSize: SIZES.h2 + 5,
+    paddingTop: 10,
+    paddingLeft: 10,
   },
 });
