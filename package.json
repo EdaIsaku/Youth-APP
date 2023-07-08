@@ -42,7 +42,8 @@
     "react-native-toast-message": "^2.1.6",
     "react-native-web": "~0.18.7",
     "ts-node": "^10.9.1",
-    "twilio": "^3.84.0"
+    "twilio": "^3.84.0",
+    "@expo/webpack-config": "^0.17.2"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

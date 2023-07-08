@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS, SIZES, POSITION } from "../../theme/theme";
-import { IMAGES, EVENTS } from "../constants";
-import { PopularEvent } from "../components";
+import { IMAGES, EVENTS, ICONS, CATEGORY } from "../constants";
+import { PopularEvent, Category } from "../components";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { STYLES } from "../navigation/RootTabStyles";
@@ -40,19 +40,8 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
       waypoints: [],
     });
   };
+
   return (
-    // <LinearGradient
-    //   // Background Linear Gradient
-    //   colors={["#ffffff", "#eeeeee"]}
-    //   start={{ x: 0, y: 0 }}
-    //   end={{ x: 0.7, y: 1 }}
-    //   style={{
-    //     width: "100%",
-    //     height: "100%",
-    //     justifyContent: "space-around",
-    //     alignItems: "center",
-    //   }}
-    // >
     <SafeAreaView style={styles.container}>
       <View style={styles.upContainer}>
         <Text style={styles.title}>YOUTH</Text>
@@ -92,32 +81,51 @@ export const Home = ({ navigation }: { navigation: Navigation }) => {
         </ScrollView>
       </View>
       <View style={styles.downContainer}>
-        <Text style={styles.subtitle}>Upcoming</Text>
+        <Text style={styles.subtitle}>Discover</Text>
+        <ScrollView
+          horizontal={true}
+          contentContainerStyle={styles.categoryContainer}
+          showsHorizontalScrollIndicator={false}
+        >
+          {CATEGORY.map((el, idx) => {
+            return (
+              <Category
+                key={idx}
+                fillColor={el.fillColor}
+                fontColor={el.fontColor}
+                info={el.info}
+                icon={el.icon}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
-    // </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     alignItems: "center",
+    backgroundColor: "#ffffff",
   },
   upContainer: {
     justifyContent: "center",
     alignItems: "flex-start",
     flex: 0.2,
-    marginHorizontal: 10,
+    paddingHorizontal: 15,
   },
   middleContainer: {
-    flex: 0.45,
+    flex: 0.55,
+    marginTop: 40,
   },
   downContainer: {
-    backgroundColor: "teal",
-    // ...POSITION.center,
     flex: 0.25,
+    alignItems: "flex-start",
+    alignSelf: "flex-start",
+    justifyContent: "flex-start",
     width: "100%",
     marginBottom: 80,
   },
@@ -126,18 +134,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.white,
     borderRadius: SIZES.border * 2,
-    shadowColor: COLORS.secondary,
+    shadowColor: COLORS.lightGrey,
     shadowOffset: {
       height: 0,
       width: 0,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
   },
   popularContainer: {
     justifyContent: "center",
     alignItems: "center",
     paddingLeft: 10,
+    paddingRight: 40,
+  },
+  categoryContainer: {
+    paddingLeft: 15,
     paddingRight: 40,
   },
   leftContainer: {
@@ -155,10 +167,10 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: "center",
     color: COLORS.black,
-    fontFamily: "Lato-Bold",
+    fontFamily: "Lato-Regular",
     fontSize: SIZES.h1,
     paddingBottom: 15,
-    marginTop: 10,
+    marginTop: 25,
   },
   mapTitle: {
     paddingBottom: 5,
@@ -177,10 +189,9 @@ const styles = StyleSheet.create({
     height: "80%",
   },
   subtitle: {
-    color: COLORS.black,
-    fontFamily: "Lato-Bold",
-    fontSize: SIZES.h2 + 5,
-    paddingTop: 10,
-    paddingLeft: 10,
+    color: COLORS.darkGrey,
+    fontFamily: "Lato-Regular",
+    fontSize: SIZES.h1 - 4,
+    paddingLeft: 15,
   },
 });

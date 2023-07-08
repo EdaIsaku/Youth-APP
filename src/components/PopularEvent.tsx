@@ -118,22 +118,23 @@ const styles = StyleSheet.create({
   eventName: {
     color: COLORS.white,
     fontFamily: "Lato-Regular",
-    fontSize: SIZES.h1 + 5,
+    fontSize: SIZES.h1 - 5,
   },
   icon: {
-    width: 20,
-    height: 20,
-    textAlign: "center",
+    width: 15,
+    height: 15,
     tintColor: COLORS.white,
   },
   eventInfo: {
     paddingLeft: 5,
-    color: COLORS.lightGrey,
-    fontSize: SIZES.body2,
+    color: COLORS.white,
+    fontSize: SIZES.body3,
+    fontFamily: "Lato-Light",
   },
   moreInfo: {
     paddingRight: 5,
     color: COLORS.white,
-    fontSize: SIZES.body2,
+    fontSize: SIZES.body3,
+    fontFamily: "Lato-Light",
   },
 });

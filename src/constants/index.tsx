@@ -5,3 +5,4 @@ export { IMAGES } from "./images";
 export { EVENTS } from "./events";
 export { SETTINGS } from "./settings";
 export { MAPSTYLE } from "./mapStyle";
+export { CATEGORY } from "./category";
