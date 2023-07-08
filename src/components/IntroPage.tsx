@@ -10,7 +10,7 @@ import {
 import { COLORS, SIZES } from "../../theme/theme";
 import { SLIDES } from "../constants";
 
-type Item = typeof SLIDES[0];
+type Item = (typeof SLIDES)[0];
 
 export const IntroPage = ({ item }: { item: Item }) => {
   const { appName, image, title, text, component, code } = item;
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   appName: {
     color: COLORS.primary,
     fontSize: SIZES.largeTitle,
-    fontFamily: "Lato-Black",
+    fontFamily: "Lato-Bold",
     paddingVertical: 20,
     letterSpacing: -1,
   },
@@ -71,15 +71,16 @@ const styles = StyleSheet.create({
   title: {
     color: COLORS.grey,
     fontSize: SIZES.h1,
-    fontFamily: "Lato-Bold",
+    fontFamily: "Lato-Regular",
     padding: SIZES.padding,
   },
   paragraph: {
     color: COLORS.grey,
-    fontSize: SIZES.body2,
-    fontFamily: "Lato-Regular",
+    fontSize: SIZES.body2 - 2,
+    fontFamily: "Lato-Light",
     textAlign: "center",
     paddingHorizontal: SIZES.padding * 3,
     paddingVertical: SIZES.padding,
+    lineHeight: 26,
   },
 });

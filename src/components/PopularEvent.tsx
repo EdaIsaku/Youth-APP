@@ -1,24 +1,28 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import React, { useState } from "react";
 import { COLORS, POSITION, SIZES } from "../../theme/theme";
 import { ICONS } from "../constants";
 
 export const PopularEvent = ({
   eventName,
-  place,
-  time,
+  eventType,
   image,
 }: {
   eventName: string;
-  place: string;
-  time: string;
+  eventType: string;
   image: any;
 }) => {
   const [prefered, setIsPrefered] = useState(false);
   const handleIconPress = () => {
     setIsPrefered(!prefered);
   };
-  const info = ["location", "time"];
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -30,27 +34,29 @@ export const PopularEvent = ({
           style={styles.heartIcon}
         ></Image>
       </TouchableOpacity>
-      <View style={styles.imageContainer}>
-        <Image source={image} style={styles.image}></Image>
-      </View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.eventName}>{eventName}</Text>
-        {info.map((el, idx) => {
-          return (
-            <View style={styles.detailsContainer} key={idx}>
-              <View style={styles.iconContainer}>
-                <Image
-                  source={el === "location" ? ICONS.location : ICONS.time}
-                  style={styles.icon}
-                ></Image>
-              </View>
-              <Text style={styles.eventInfo}>
-                {el === "location" ? place : time}
-              </Text>
+      <ImageBackground
+        imageStyle={styles.image}
+        source={image}
+        style={styles.image}
+      >
+        <View style={styles.infoContainer}>
+          <View>
+            <Text style={styles.eventName}>{eventName}</Text>
+            <View style={styles.rowContainer}>
+              <Image source={ICONS.music} style={styles.icon}></Image>
+              <Text style={styles.eventInfo}>{eventType}</Text>
             </View>
-          );
-        })}
-      </View>
+          </View>
+          <View style={styles.rowContainer}>
+            <TouchableOpacity
+              style={{ flexDirection: "row", ...POSITION.center }}
+            >
+              <Text style={styles.moreInfo}>Learn More</Text>
+              <Image source={ICONS.right} style={styles.icon}></Image>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -58,93 +64,77 @@ export const PopularEvent = ({
 const styles = StyleSheet.create({
   container: {
     ...POSITION.center,
-    backgroundColor: COLORS.black,
-    width: SIZES.phoneDimensions.width / 2.3,
-    height: "90%",
+    backgroundColor: COLORS.white,
+    width: SIZES.phoneDimensions.width / 1.3,
+    height: "85%",
     marginHorizontal: SIZES.margin,
     borderRadius: SIZES.border * 2,
-    shadowColor: COLORS.white,
-    shadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
   },
   reactionContainer: {
     ...POSITION.center,
     position: "absolute",
+    zIndex: 2,
     right: -15,
     top: -15,
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: COLORS.black,
-    shadowColor: COLORS.white,
+    backgroundColor: COLORS.white,
+    shadowColor: COLORS.lightGrey,
     shadowOffset: {
       height: 0,
       width: 0,
     },
-    shadowOpacity: 1,
-    shadowRadius: 2,
-  },
-  imageContainer: {
-    ...POSITION.center,
-    width: 100,
-    height: 100,
-    borderRadius: 45,
-    marginBottom: 30,
-    shadowColor: COLORS.white,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
   },
   infoContainer: {
-    width: "80%",
-    height: "40%",
+    flex: 1,
     justifyContent: "space-between",
-    alignItems: "center",
+    padding: 20,
   },
-  detailsContainer: {
+  rowContainer: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    flexDirection: "row",
-    width: "100%",
   },
   iconContainer: {
     width: 35,
     height: 35,
     borderRadius: 8,
-    backgroundColor: COLORS.transparentWhite,
+    backgroundColor: COLORS.black,
     ...POSITION.center,
   },
   heartIcon: {
     width: "50%",
     height: "50%",
-    tintColor: COLORS.white,
+    tintColor: COLORS.secondary,
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 50,
+    borderRadius: SIZES.border * 2,
   },
   eventName: {
     color: COLORS.white,
-    fontFamily: "Lato-Bold",
-    fontSize: SIZES.body3,
-    paddingBottom: 20,
+    fontFamily: "Lato-Regular",
+    fontSize: SIZES.h1 - 5,
   },
   icon: {
-    width: "60%",
-    height: "60%",
-    tintColor: "white",
+    width: 15,
+    height: 15,
+    tintColor: COLORS.white,
   },
   eventInfo: {
-    paddingLeft: 10,
+    paddingLeft: 5,
     color: COLORS.white,
     fontSize: SIZES.body3,
+    fontFamily: "Lato-Light",
+  },
+  moreInfo: {
+    paddingRight: 5,
+    color: COLORS.white,
+    fontSize: SIZES.body3,
+    fontFamily: "Lato-Light",
   },
 });

@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
   },
   skipText: {
     color: COLORS.primary,
-    ...FONTS.body2,
+    ...FONTS.body3,
+    fontFamily: "Lato-Regular",
   },
 });

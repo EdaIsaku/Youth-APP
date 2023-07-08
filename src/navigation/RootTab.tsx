@@ -8,5 +8,5 @@ import { showRealAppAtom } from "../store";
 export const RootTab = () => {
   const [showRealApp] = useAtom(showRealAppAtom);
 
-  return <>{showRealApp ? <RootStack /> : <IntroScreens />}</>;
+  return <>{!showRealApp ? <RootStack /> : <IntroScreens />}</>;
 };

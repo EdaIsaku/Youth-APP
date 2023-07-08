@@ -5,6 +5,7 @@ export { VerifyNumber } from "./VerifyNumber";
 export { CustomButton } from "./CustomButton";
 export { PermissionDenied } from "./PermissionDenied";
 export { PopularEvent } from "./PopularEvent";
+export { Category } from "./CategoryEvent";
 export { EventTicket } from "./EventTicket";
 export { SettingsElement } from "./SettingsElement";
 export { CustomModal } from "./CustomModal";

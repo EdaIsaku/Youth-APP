@@ -7,7 +7,7 @@ import { phoneNumberAtom, codeSendAtom } from "../store";
 import { useAtom } from "jotai";
 import { RESET } from "jotai/utils";
 
-const BASE_URL = "http://192.168.0.104:3000";
+const BASE_URL = "http://192.168.1.113:3000";
 
 export const PhoneNumber = () => {
   const [value, setValue] = useState("");
@@ -44,7 +44,7 @@ export const PhoneNumber = () => {
         .formattedNumber;
     setPhoneNumber(formatedNumber);
     if (valid) {
-      sendCode(phoneNumber);
+      // sendCode(phoneNumber);
       setCodeSend(true);
     }
   };
@@ -87,11 +87,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   textInput: {
-    fontFamily: "Lato-Bold",
+    fontFamily: "Lato-Regular",
     fontSize: SIZES.body3,
+    letterSpacing: 1,
   },
   codeText: {
-    fontFamily: "Lato-Bold",
+    fontFamily: "Lato-Light",
     fontSize: SIZES.body3,
   },
 });

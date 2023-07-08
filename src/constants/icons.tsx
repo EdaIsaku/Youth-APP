@@ -24,4 +24,5 @@ export const ICONS = {
   photo: require("../../assets/icons/take_photo__icon.png"),
   flip: require("../../assets/icons/flip_icon.png"),
   pin: require("../../assets/icons/pin_icon.png"),
+  music: require("../../assets/icons/music_icon.png"),
 };
